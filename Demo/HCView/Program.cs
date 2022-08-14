@@ -15,7 +15,7 @@ namespace HCViewDemo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmHCViewDemo());
+            Application.Run(new FormMain());
         }
     }
 }
