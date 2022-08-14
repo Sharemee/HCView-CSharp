@@ -52,7 +52,7 @@ namespace HC.View
         public static byte HCFormatVersion = 3;
         public const uint HC_TEXTMAXSIZE = 4294967295;
 
-        public static System.Windows.Forms.Cursor GCursor;
+        public static Cursor GCursor;
 
         public const byte
             HC_PROGRAMLANGUAGE = 2,  // 1字节表示使用的编程语言 1:delphi, 2:C#, 3:C++, 4:HTML5
