@@ -475,7 +475,7 @@ namespace EMRView
             if (!string.IsNullOrEmpty(vFile))
                 return vFile;
 
-            return String.Empty;
+            return string.Empty;
         }
 
         /// <summary>

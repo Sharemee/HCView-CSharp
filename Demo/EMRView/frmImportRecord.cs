@@ -29,14 +29,12 @@ namespace EMRView
 
         private void BtnImportSelect_Click(object sender, EventArgs e)
         {
-            if (FOnImportAsText != null)
-                FOnImportAsText(FEmrViewLite.ActiveSection.ActiveData.GetSelectText());
+            FOnImportAsText?.Invoke(FEmrViewLite.ActiveSection.ActiveData.GetSelectText());
         }
 
         private void BtnImportAll_Click(object sender, EventArgs e)
         {
-            if (FOnImportAsText != null)
-                FOnImportAsText(FEmrViewLite.SaveToText());
+            FOnImportAsText?.Invoke(FEmrViewLite.SaveToText());
         }
 
         public HCEmrView EmrView

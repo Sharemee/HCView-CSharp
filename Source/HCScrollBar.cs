@@ -45,7 +45,7 @@ namespace HC.View
         private static Color ThumBackColor = Color.FromArgb(0xD0, 0xD1, 0xD5);
 
         private int FMin, FMax, FRange, FPosition, FBtnStep, FPageSize;
-        private Single FPercent;
+        private float FPercent;
         private Orientation FOrientation;
         private ScrollEventHandler FOnScroll;
         private BarControl FMouseDownControl;
@@ -76,7 +76,7 @@ namespace HC.View
         /// </summary>
         private void ReCalcThumRect()
         {
-            Single vPer = 0F;
+            float vPer = 0F;
             int vThumHeight = 0;
 
             if (FOrientation == View.Orientation.oriHorizontal)
@@ -222,8 +222,7 @@ namespace HC.View
                 //Repaint;
                 UpdateRangRect();  // 重绘
 
-                if (FOnScroll != null)
-                    FOnScroll(this, ScrollCode.scPosition, FPosition);
+                FOnScroll?.Invoke(this, ScrollCode.scPosition, FPosition);
             }
         }
 
@@ -490,7 +489,7 @@ namespace HC.View
 
         protected virtual void DoDrawThumBefor(HCCanvas ACanvas, RECT AThumRect) { }
 
-        protected Single Percent
+        protected float Percent
         {
             get { return FPercent; }
             set { FPercent = value; }

@@ -101,7 +101,7 @@ namespace HC.View
     public delegate void TraverseItemEventHandle(HCCustomData aData, int aItemNo, int aTag, Stack<HCDomainNode> aDomainStack, ref bool aStop);
     public delegate void HCLoadProc(ushort fileVersion, HCStyle style);
 
-    public class HCItemTraverse : Object
+    public class HCItemTraverse : object
     {
         public int SectionIndex;
         public HashSet<SectionArea> Areas;
@@ -283,8 +283,7 @@ namespace HC.View
             if (FCurParaNo != value)
             {
                 FCurParaNo = value;
-                if (FOnCurParaNoChange != null)
-                    FOnCurParaNoChange(this, null);
+                FOnCurParaNoChange?.Invoke(this, null);
             }
         }
 
@@ -700,7 +699,7 @@ namespace HC.View
                 {
                     vAscent = HC.SwapBytes((ushort)aTextStyle.FontHeader_Ascender);
                     vDescent = (ushort)(-HC.SwapBytes((ushort)aTextStyle.FontHeader_Descender)); // 基线向下
-                    Single vSizeScale = aTextStyle.Size / HCUnitConversion.FontSizeScale / aTextStyle.OutlineTextmetric_otmEMSquare;
+                    float vSizeScale = aTextStyle.Size / HCUnitConversion.FontSizeScale / aTextStyle.OutlineTextmetric_otmEMSquare;
                     vAscent = (ushort)Math.Ceiling(vAscent * vSizeScale);
                     vDescent = (ushort)Math.Ceiling(vDescent * vSizeScale);
                     int vLineSpacing = (ushort)Math.Ceiling(1.3 * (vAscent + vDescent));
@@ -777,14 +776,12 @@ namespace HC.View
 
         protected virtual void DoInsertItem(HCCustomItem aItem)
         {
-            if (FOnInsertItem != null)
-                FOnInsertItem(this, aItem);
+            FOnInsertItem?.Invoke(this, aItem);
         }
 
         protected virtual void DoRemoveItem(HCCustomItem aItem)
         {
-            if (FOnRemoveItem != null)
-                FOnRemoveItem(this, aItem);
+            FOnRemoveItem?.Invoke(this, aItem);
         }
 
         protected virtual void DoItemAction(int aItemNo, int aOffset, HCAction aAction) { }
@@ -793,33 +790,24 @@ namespace HC.View
             int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop, int aDataScreenBottom,
             HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
-            if (FOnDrawItemPaintBefor != null)
-            {
-                FOnDrawItemPaintBefor(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
-                    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
-            }
+            FOnDrawItemPaintBefor?.Invoke(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
+    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
         }
 
         protected virtual void DoDrawItemPaintContent(HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect,
             RECT aClearRect, string aDrawText, int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop,
             int aDataScreenBottom, HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
-            if (FOnDrawItemPaintContent != null)
-            {
-                FOnDrawItemPaintContent(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDrawText,
-                    aDataDrawLeft, aDataDrawRight, aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
-            }
+            FOnDrawItemPaintContent?.Invoke(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDrawText,
+    aDataDrawLeft, aDataDrawRight, aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
         }
 
         protected virtual void DoDrawItemPaintAfter(HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect, RECT aClearRect,
             int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop, int aDataScreenBottom,
             HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
-            if (FOnDrawItemPaintAfter != null)
-            {
-                FOnDrawItemPaintAfter(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
-                    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
-            }
+            FOnDrawItemPaintAfter?.Invoke(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
+    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
         }
 
         protected virtual void DoLoadFromStream(Stream aStream, HCStyle aStyle, ushort aFileVersion)
@@ -912,8 +900,7 @@ namespace HC.View
 
         public virtual void Change()
         {
-            if (FOnChange != null)
-                FOnChange(this, null);
+            FOnChange?.Invoke(this, null);
         }
 
         /// <summary> 嵌套时获取根级Data </summary>
@@ -2142,7 +2129,7 @@ namespace HC.View
             ApplySelectParaStyle(vMatchStyle);
         }
 
-        public virtual void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, Single aSpace)
+        public virtual void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, float aSpace)
         {
             ParaLineSpaceMatch vMatchStyle = new ParaLineSpaceMatch();
             vMatchStyle.SpaceMode = aSpaceMode;
@@ -2150,21 +2137,21 @@ namespace HC.View
             ApplySelectParaStyle(vMatchStyle);
         }
 
-        public virtual void ApplyParaLeftIndent(Single indent)
+        public virtual void ApplyParaLeftIndent(float indent)
         {
             ParaLeftIndentMatch vMatchStyle = new ParaLeftIndentMatch();
             vMatchStyle.Indent = indent;
             ApplySelectParaStyle(vMatchStyle);
         }
 
-        public virtual void ApplyParaRightIndent(Single indent)
+        public virtual void ApplyParaRightIndent(float indent)
         {
             ParaRightIndentMatch vMatchStyle = new ParaRightIndentMatch();
             vMatchStyle.Indent = indent;
             ApplySelectParaStyle(vMatchStyle);
         }
 
-        public virtual void ApplyParaFirstIndent(Single indent)
+        public virtual void ApplyParaFirstIndent(float indent)
         {
             ParaFirstIndentMatch vMatchStyle = new ParaFirstIndentMatch();
             vMatchStyle.Indent = indent;
@@ -2200,7 +2187,7 @@ namespace HC.View
             ApplySelectTextStyle(vMatchStyle);
         }
 
-        public virtual void ApplyTextFontSize(Single aFontSize)
+        public virtual void ApplyTextFontSize(float aFontSize)
         {
             FontSizeStyleMatch vMatchStyle = new FontSizeStyleMatch();
             vMatchStyle.FontSize = aFontSize;
@@ -2707,7 +2694,7 @@ namespace HC.View
 
         public void SaveItemToStream(Stream aStream, int aStartItemNo, int aStartOffset, int aEndItemNo, int aEndOffset)
         {
-            Int64 vBegPos = aStream.Position;
+            long vBegPos = aStream.Position;
             byte[] vBuffer = System.BitConverter.GetBytes(vBegPos);
             aStream.Write(vBuffer, 0, vBuffer.Length);  // 数据大小占位，便于越过
 
@@ -2785,7 +2772,7 @@ namespace HC.View
                 }
             }
             //
-            Int64 vEndPos = aStream.Position;
+            long vEndPos = aStream.Position;
             aStream.Position = vBegPos;
             vBegPos = vEndPos - vBegPos - Marshal.SizeOf(vBegPos);
             vBuffer = System.BitConverter.GetBytes(vBegPos);
@@ -2923,7 +2910,7 @@ namespace HC.View
             }
             else
             {
-                Int64 vBegPos = 0;
+                long vBegPos = 0;
                 byte[] vBuffer = System.BitConverter.GetBytes(vBegPos);
                 aStream.Write(vBuffer, 0, vBuffer.Length);
             }

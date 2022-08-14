@@ -118,7 +118,7 @@ namespace HC.View
                 aStream.Read(vBuffer, 0, vBuffer.Length);
                 FCode128.TextVisible = BitConverter.ToBoolean(vBuffer, 0);
 
-                FCode128.Zoom = (Byte)aStream.ReadByte();
+                FCode128.Zoom = (byte)aStream.ReadByte();
             }
         }
 
@@ -156,12 +156,12 @@ namespace HC.View
                 FCode128.TextVisible = true;
 
             if (aNode.HasAttribute("penwidth"))
-                FCode128.Zoom = Byte.Parse(aNode.Attributes["penwidth"].Value);
+                FCode128.Zoom = byte.Parse(aNode.Attributes["penwidth"].Value);
             else
                 FCode128.Zoom = 1;
         }
 
-        public Byte PenWidth
+        public byte PenWidth
         {
             get { return GetPenWidth(); }
             set { SetPenWidth(value); }

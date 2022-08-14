@@ -125,7 +125,7 @@ namespace HC.View
         private bool FDrawHotDomainRegion;
         private int FHtmlFileTempName;
         private HCStates FStates;  // 全局操作状态
-        private Byte FFormatVersion = 1;  // 排版算法版本
+        private byte FFormatVersion = 1;  // 排版算法版本
 
         private InvalidateRectEventHandler FOnInvalidateRect;
 
@@ -329,7 +329,7 @@ namespace HC.View
             return Result;
         }
 
-        public void ApplyTempStyle(int value, Single aScale = 1)
+        public void ApplyTempStyle(int value, float aScale = 1)
         {
             if (FTempStyleNo != value)
             {
@@ -359,7 +359,7 @@ namespace HC.View
 
         public void SaveToStream(Stream aStream)
         {
-            Int64 vBegPos = aStream.Position;
+            long vBegPos = aStream.Position;
             byte[] vBuffer = BitConverter.GetBytes(vBegPos);
             aStream.Write(vBuffer, 0, vBuffer.Length);
 
@@ -375,7 +375,7 @@ namespace HC.View
             SaveParaStyles(aStream);
             SaveTextStyles(aStream);
 
-            Int64 vEndPos = aStream.Position;
+            long vEndPos = aStream.Position;
             aStream.Position = vBegPos;
             vBegPos = vEndPos - vBegPos - Marshal.SizeOf(vBegPos);
             vBuffer = BitConverter.GetBytes(vBegPos);
@@ -411,7 +411,7 @@ namespace HC.View
 
         public void LoadFromStream(Stream aStream, ushort aFileVersion)
         {
-            Int64 vDataSize = 0;
+            long vDataSize = 0;
             byte[] vBuffer = BitConverter.GetBytes(vDataSize);
             aStream.Read(vBuffer, 0, vBuffer.Length);
             vDataSize = BitConverter.ToInt64(vBuffer, 0);
@@ -533,8 +533,7 @@ namespace HC.View
 
         public void InvalidateRect(RECT aRect)
         {
-            if (FOnInvalidateRect != null)
-                FOnInvalidateRect(aRect);
+            FOnInvalidateRect?.Invoke(aRect);
         }
 
         public HCTextStyle DefaultTextStyle

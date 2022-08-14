@@ -29,8 +29,8 @@ namespace EMRView
             int vIndex = GetPaperInfoIndexByName(cbxPaper.Text);
             if (vIndex > 0)  // 标准纸张大小
             {
-                tbxWidth.Text = String.Format("{0:0.#}", FPaperInfos[vIndex].Width);
-                tbxHeight.Text = String.Format("{0:0.#}", FPaperInfos[vIndex].Height);
+                tbxWidth.Text = string.Format("{0:0.#}", FPaperInfos[vIndex].Width);
+                tbxHeight.Text = string.Format("{0:0.#}", FPaperInfos[vIndex].Height);
                 tbxWidth.ReadOnly = true;
                 tbxHeight.ReadOnly = true;
             }

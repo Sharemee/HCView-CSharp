@@ -15,8 +15,7 @@ namespace HC.View
 
         private void DoResize()
         {
-            if (FOnResize != null)
-                FOnResize(this, null);
+            FOnResize?.Invoke(this, null);
         }
 
         protected void SetWdith(int value)
@@ -81,14 +80,12 @@ namespace HC.View
 
         private void DoOnInsert(object sender, NListEventArgs<HCToolBarControl> e)
         {
-            if (FOnCountChange != null)
-                FOnCountChange(e.Item, null);
+            FOnCountChange?.Invoke(e.Item, null);
         }
 
         private void DoDelete(object sender, NListEventArgs<HCToolBarControl> e)
         {
-            if (FOnCountChange != null)
-                FOnCountChange(e.Item, null);
+            FOnCountChange?.Invoke(e.Item, null);
         }
 
         public HCToolControls()
@@ -311,8 +308,7 @@ namespace HC.View
                 vLeft = vLeft + FControls[i].Width + FPadding;
             }
 
-            if (FOnUpdateView != null)
-                FOnUpdateView(aRect, FGraphicCanvas);
+            FOnUpdateView?.Invoke(aRect, FGraphicCanvas);
         }
 
         public void PaintTo(HCCanvas aCanvas, int aLeft, int aTop)

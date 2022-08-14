@@ -59,8 +59,7 @@ namespace EMRView
                 dgvDE.Rows[i].Cells[5].Value = vRows[i]["domainid"];
             }
 
-            if (FOnSelectChange != null)
-                FOnSelectChange(this, null);
+            FOnSelectChange?.Invoke(this, null);
         }
 
         private void tbxPY_KeyDown(object sender, KeyEventArgs e)
@@ -89,8 +88,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeItem != null)
-                    FOnInsertAsDeItem(sender, e);
+                FOnInsertAsDeItem?.Invoke(sender, e);
             }
         }
 
@@ -98,8 +96,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeRadioGroup != null)
-                    FOnInsertAsDeRadioGroup(sender, e);
+                FOnInsertAsDeRadioGroup?.Invoke(sender, e);
             }
         }
 
@@ -107,8 +104,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeGroup != null)
-                    FOnInsertAsDeGroup(sender, e);
+                FOnInsertAsDeGroup?.Invoke(sender, e);
             }
         }
 
@@ -116,8 +112,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeEdit != null)
-                    FOnInsertAsDeEdit(sender, e);
+                FOnInsertAsDeEdit?.Invoke(sender, e);
             }
         }
 
@@ -125,8 +120,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeDateTime != null)
-                    FOnInsertAsDeDateTime(sender, e);
+                FOnInsertAsDeDateTime?.Invoke(sender, e);
             }
         }
 
@@ -134,8 +128,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeCheckBox != null)
-                    FOnInsertAsDeCheckBox(sender, e);
+                FOnInsertAsDeCheckBox?.Invoke(sender, e);
             }
         }
 
@@ -258,8 +251,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeCombobox != null)
-                    FOnInsertAsDeCombobox(sender, e);
+                FOnInsertAsDeCombobox?.Invoke(sender, e);
             }
         }
 
@@ -267,15 +259,13 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeFloatBarCode != null)
-                    FOnInsertAsDeFloatBarCode(sender, e);
+                FOnInsertAsDeFloatBarCode?.Invoke(sender, e);
             }
         }
 
         private void DgvDE_SelectionChanged(object sender, EventArgs e)
         {
-            if (FOnSelectChange != null)
-                FOnSelectChange(sender, e);
+            FOnSelectChange?.Invoke(sender, e);
         }
 
         public EventHandler OnSelectChange
@@ -308,8 +298,7 @@ namespace EMRView
         {
             if (dgvDE.SelectedRows.Count > 0)
             {
-                if (FOnInsertAsDeImage != null)
-                    FOnInsertAsDeImage(sender, e);
+                FOnInsertAsDeImage?.Invoke(sender, e);
             }
         }
 

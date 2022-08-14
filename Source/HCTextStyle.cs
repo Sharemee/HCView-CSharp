@@ -30,11 +30,11 @@ namespace HC.View
 
     public class HCTextStyle : HCObject
     {
-        public const Single DefaultFontSize = 10.5F;  // 五号
+        public const float DefaultFontSize = 10.5F;  // 五号
         public const string DefaultFontFamily = "宋体";
-        public const Single MaxFontSize = 512F;
+        public const float MaxFontSize = 512F;
 
-        private Single FSize;
+        private float FSize;
         private int FFontHeight;
         private string FFamily;
         private HCFontStyles FFontStyles;
@@ -47,8 +47,8 @@ namespace HC.View
         private int FOutlineTextmetric_otmAscent;
         private int FOutlineTextmetric_otmDescent;
         private uint FOutlineTextmetric_otmEMSquare;
-        private Int16 FFontHeader_Ascender;
-        private Int16 FFontHeader_Descender;
+        private short FFontHeader_Ascender;
+        private short FFontHeader_Descender;
         private int FTextMetric_tmAveCharWidth;
         private int FTextMetric_tmExternalLeading;
         private int FTextMetric_tmHeight;
@@ -59,7 +59,7 @@ namespace HC.View
                 FFamily = value;
         }
 
-        protected void SetSize(Single value)
+        protected void SetSize(float value)
         {
             if (FSize != value)
                 FSize = value;
@@ -91,7 +91,7 @@ namespace HC.View
 
         private const int MS_HHEA_TAG = 0x61656868;  // MS_MAKE_TAG('h','h','e','a')
         private const uint CJK_CODEPAGE_BITS = (1 << 17) | (1 << 18) | (1 << 19) | (1 << 20) | (1 << 21);
-        public void ApplyStyle(HCCanvas aCanvas, Single aScale = 1)
+        public void ApplyStyle(HCCanvas aCanvas, float aScale = 1)
         {
             if (FBackColor == HC.HCTransparentColor)
                 aCanvas.Brush.Style = HCBrushStyle.bsClear;
@@ -398,12 +398,12 @@ namespace HC.View
             get { return FOutlineTextmetric_otmEMSquare; }
         }
 
-        public Int16 FontHeader_Ascender
+        public short FontHeader_Ascender
         {
             get { return FFontHeader_Ascender; }
         }
 
-        public Int16 FontHeader_Descender
+        public short FontHeader_Descender
         {
             get { return FFontHeader_Descender; }
         }
@@ -429,7 +429,7 @@ namespace HC.View
             set { SetFamily(value); }
         }
 
-        public Single Size
+        public float Size
         {
             get { return FSize; }
             set { SetSize(value); }

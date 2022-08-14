@@ -147,7 +147,7 @@ namespace HC.View
        {
            if (sourceType == typeof(ErrorCorrectionLevel))
                return true;
-           if (sourceType == typeof(String))
+           if (sourceType == typeof(string))
                return true;
            return base.CanConvertFrom(context, sourceType);
        }
@@ -166,7 +166,7 @@ namespace HC.View
            {
                return level.Name;
            }
-           if (value is String)
+           if (value is string)
            {
                switch (value.ToString())
                {
@@ -261,10 +261,10 @@ namespace HC.View
            }
        }
 
-       /// <summary>
-       /// Specifies what character encoding to use where applicable (type <see cref="String"/>)
-       /// </summary>
-       public string CharacterSet
+        /// <summary>
+        /// Specifies what character encoding to use where applicable (type <see cref="string"/>)
+        /// </summary>
+        public string CharacterSet
        {
            get
            {
@@ -441,7 +441,7 @@ namespace HC.View
            var emptyArea = 0;
            var outputContent = font != null &&
                                (options == null || !options.PureBarcode) &&
-                               !String.IsNullOrEmpty(content) &&
+                               !string.IsNullOrEmpty(content) &&
                                (format == BarcodeFormat.CODE_39 ||
                                 format == BarcodeFormat.CODE_93 ||
                                 format == BarcodeFormat.CODE_128);
@@ -586,7 +586,7 @@ namespace HC.View
        /// <returns>
        /// The generated barcode as a Matrix of unsigned bytes (0 == black, 255 == white)
        /// </returns>
-       public BitMatrix encode(String contents, BarcodeFormat format, int width, int height)
+       public BitMatrix encode(string contents, BarcodeFormat format, int width, int height)
        {
            return encode(contents, format, width, height, null);
        }
@@ -598,13 +598,13 @@ namespace HC.View
        /// {@code height} to zero to get minimum size barcode. If negative value is set to {@code width}
        /// or {@code height}, {@code IllegalArgumentException} is thrown.
        /// </summary>
-       public virtual BitMatrix encode(String contents,
+       public virtual BitMatrix encode(string contents,
                                BarcodeFormat format,
                                int width,
                                int height,
                                IDictionary<EncodeHintType, object> hints)
        {
-           if (String.IsNullOrEmpty(contents))
+           if (string.IsNullOrEmpty(contents))
            {
                throw new ArgumentException("Found empty contents");
            }
@@ -698,14 +698,14 @@ namespace HC.View
        /// </summary>
        /// <param name="contents">barcode contents to encode</param>
        /// <returns>a <c>bool[]</c> of horizontal pixels (false = white, true = black)</returns>
-       public abstract bool[] encode(String contents);
+       public abstract bool[] encode(string contents);
 
        /// <summary>
        /// Calculates the checksum digit modulo10.
        /// </summary>
        /// <param name="contents">The contents.</param>
        /// <returns></returns>
-       public static String CalculateChecksumDigitModulo10(String contents)
+       public static string CalculateChecksumDigitModulo10(string contents)
        {
            var oddsum = 0;
            var evensum = 0;
@@ -978,7 +978,7 @@ namespace HC.View
        /// <param name="width"></param>
        /// <param name="height"></param>
        /// <returns></returns>
-       public BitMatrix encode(String contents, BarcodeFormat format, int width, int height)
+       public BitMatrix encode(string contents, BarcodeFormat format, int width, int height)
        {
            return encode(contents, format, width, height, null);
        }
@@ -992,7 +992,7 @@ namespace HC.View
        /// <param name="height"></param>
        /// <param name="hints"></param>
        /// <returns></returns>
-       public BitMatrix encode(String contents, BarcodeFormat format, int width, int height, IDictionary<EncodeHintType, object> hints)
+       public BitMatrix encode(string contents, BarcodeFormat format, int width, int height, IDictionary<EncodeHintType, object> hints)
        {
            if (!formatMap.ContainsKey(format))
                throw new ArgumentException("No encoder available for format " + format);
@@ -1237,7 +1237,7 @@ namespace HC.View
 
         private bool forceCodesetB;
 
-        public override BitMatrix encode(String contents,
+        public override BitMatrix encode(string contents,
                                 BarcodeFormat format,
                                 int width,
                                 int height,
@@ -1266,7 +1266,7 @@ namespace HC.View
             return base.encode(contents, format, width, height, hints);
         }
 
-        override public bool[] encode(String contents)
+        override public bool[] encode(string contents)
         {
             int length = contents.Length;
             // Check length
@@ -1345,7 +1345,7 @@ namespace HC.View
                                     break;
                                 default:
                                     // CODE_CODE_C
-                                    patternIndex = Int32.Parse(contents.Substring(position, 2));
+                                    patternIndex = int.Parse(contents.Substring(position, 2));
                                     position++; // Also incremented below
                                     break;
                             }
@@ -1421,7 +1421,7 @@ namespace HC.View
         }
 
 
-        private static CType findCType(String value, int start)
+        private static CType findCType(string value, int start)
         {
             int last = value.Length;
             if (start >= last)
@@ -1449,7 +1449,7 @@ namespace HC.View
             return CType.TWO_DIGITS;
         }
 
-        private int chooseCode(String value, int start, int oldCode)
+        private int chooseCode(string value, int start, int oldCode)
         {
             CType lookahead = findCType(value, start);
             if (lookahead == CType.ONE_DIGIT)
@@ -1523,7 +1523,7 @@ namespace HC.View
     }
     public class Code93Writer : OneDimensionalCodeWriter
     {
-        public override BitMatrix encode(String contents, BarcodeFormat format, int width, int height, IDictionary<EncodeHintType, object> hints)
+        public override BitMatrix encode(string contents, BarcodeFormat format, int width, int height, IDictionary<EncodeHintType, object> hints)
         {
             if (format != BarcodeFormat.CODE_93)
             {
@@ -1532,7 +1532,7 @@ namespace HC.View
             return base.encode(contents, format, width, height, hints);
         }
         // Note that 'abcd' are dummy characters in place of control characters.
-        internal const String ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%abcd*";
+        internal const string ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%abcd*";
 
         /// <summary>
         /// These represent the encodings of characters, as patterns of wide and narrow bars.
@@ -1547,7 +1547,7 @@ namespace HC.View
                                                     0x126, 0x1DA, 0x1D6, 0x132, 0x15E, // Control chars? $-*
                                                  };
         private static readonly int ASTERISK_ENCODING = CHARACTER_ENCODINGS[47];
-        public override bool[] encode(String contents)
+        public override bool[] encode(string contents)
         {
             int length = contents.Length;
             if (length > 80)
@@ -1627,7 +1627,7 @@ namespace HC.View
             return 9;
         }
 
-        private static int computeChecksumIndex(String contents, int maxWeight)
+        private static int computeChecksumIndex(string contents, int maxWeight)
         {
             int weight = 1;
             int total = 0;
@@ -1659,7 +1659,7 @@ namespace HC.View
         /// <param name="height"></param>
         /// <param name="hints"></param>
         /// <returns></returns>
-        public override BitMatrix encode(String contents,
+        public override BitMatrix encode(string contents,
                                 BarcodeFormat format,
                                 int width,
                                 int height,
@@ -1671,7 +1671,7 @@ namespace HC.View
             }
             return base.encode(contents, format, width, height, hints);
         }
-        internal static String ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%";
+        internal static string ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%";
         /// <summary>
         /// These represent the encodings of characters, as patterns of wide and narrow bars.
         /// The 9 least-significant bits of each int correspond to the pattern of wide and narrow,
@@ -1692,7 +1692,7 @@ namespace HC.View
         /// </summary>
         /// <param name="contents"></param>
         /// <returns></returns>
-        public override bool[] encode(String contents)
+        public override bool[] encode(string contents)
         {
             int length = contents.Length;
             if (length > 80)
@@ -1757,7 +1757,7 @@ namespace HC.View
             }
         }
 
-        private static String tryToConvertToExtendedMode(String contents)
+        private static string tryToConvertToExtendedMode(string contents)
         {
             var length = contents.Length;
             var extendedContent = new StringBuilder();
@@ -1997,7 +1997,7 @@ namespace HC.View
        /// <returns>
        /// The generated barcode as a Matrix of unsigned bytes (0 == black, 255 == white)
        /// </returns>
-       public BitMatrix encode(String contents, BarcodeFormat format, int width, int height)
+       public BitMatrix encode(string contents, BarcodeFormat format, int width, int height)
        {
            return encode(contents, format, width, height, null);
        }
@@ -2012,13 +2012,13 @@ namespace HC.View
        /// <returns>
        /// The generated barcode as a Matrix of unsigned bytes (0 == black, 255 == white)
        /// </returns>
-       public BitMatrix encode(String contents,
+       public BitMatrix encode(string contents,
                                BarcodeFormat format,
                                int width,
                                int height,
                                IDictionary<EncodeHintType, object> hints)
        {
-           if (String.IsNullOrEmpty(contents))
+           if (string.IsNullOrEmpty(contents))
            {
                throw new ArgumentException("Found empty contents");
            }
@@ -2134,7 +2134,7 @@ namespace HC.View
        /// <param name="destinationArray">Array to return the chars</param>
        /// <param name="destinationStart">Position of the destination array of chars to start storing the chars</param>
        /// <returns>An array of chars</returns>
-       public static void GetCharsFromString(System.String sourceString, int sourceStart, int sourceEnd, char[] destinationArray, int destinationStart)
+       public static void GetCharsFromString(string sourceString, int sourceStart, int sourceEnd, char[] destinationArray, int destinationStart)
        {
            int sourceCounter = sourceStart;
            int destinationCounter = destinationStart;
@@ -2168,9 +2168,9 @@ namespace HC.View
        /// </summary>
        /// <param name="strings">The strings.</param>
        /// <returns></returns>
-       public static String[] toStringArray(ICollection<string> strings)
+       public static string[] toStringArray(ICollection<string> strings)
        {
-           var result = new String[strings.Count];
+           var result = new string[strings.Count];
            strings.CopyTo(result, 0);
            return result;
        }
@@ -2185,7 +2185,7 @@ namespace HC.View
        public static string Join<T>(string separator, IEnumerable<T> values)
        {
            var builder = new StringBuilder();
-           separator = separator ?? String.Empty;
+           separator = separator ?? string.Empty;
            if (values != null)
            {
                foreach (var value in values)
@@ -2291,10 +2291,10 @@ namespace HC.View
    }
    public enum DecodeHintType
    {
-       /// <summary>
-       /// Unspecified, application-specific hint. Maps to an unspecified <see cref="System.Object" />.
-       /// </summary>
-       OTHER,
+        /// <summary>
+        /// Unspecified, application-specific hint. Maps to an unspecified <see cref="object" />.
+        /// </summary>
+        OTHER,
 
        /// <summary>
        /// Image is a pure monochrome image of a barcode. Doesn't matter what it maps to;
@@ -2668,9 +2668,9 @@ namespace HC.View
        internal static readonly IDictionary<int, CharacterSetECI> VALUE_TO_ECI;
        internal static readonly IDictionary<string, CharacterSetECI> NAME_TO_ECI;
 
-       private readonly String encodingName;
+       private readonly string encodingName;
 
-       public String EncodingName
+       public string EncodingName
        {
            get
            {
@@ -2716,20 +2716,20 @@ namespace HC.View
            addCharacterSet(30, new[] { "EUC-KR", "EUC_KR" });
        }
 
-       private CharacterSetECI(int value, String encodingName)
+       private CharacterSetECI(int value, string encodingName)
            : base(value)
        {
            this.encodingName = encodingName;
        }
 
-       private static void addCharacterSet(int value, String encodingName)
+       private static void addCharacterSet(int value, string encodingName)
        {
            var eci = new CharacterSetECI(value, encodingName);
            VALUE_TO_ECI[value] = eci; // can't use valueOf
            NAME_TO_ECI[encodingName] = eci;
        }
 
-       private static void addCharacterSet(int value, String[] encodingNames)
+       private static void addCharacterSet(int value, string[] encodingNames)
        {
            var eci = new CharacterSetECI(value, encodingNames[0]);
            VALUE_TO_ECI[value] = eci; // can't use valueOf
@@ -2752,7 +2752,7 @@ namespace HC.View
 
        /// <param name="name">character set ECI encoding name</param>
        /// <returns><see cref="CharacterSetECI"/> representing ECI for character encoding, or null if it is legalbut unsupported</returns>
-       public static CharacterSetECI getCharacterSetECIByName(String name)
+       public static CharacterSetECI getCharacterSetECIByName(string name)
        {
            return NAME_TO_ECI[name.ToUpper()];
        }
@@ -3005,7 +3005,7 @@ namespace HC.View
            return new GenericGFPoly[] { quotient, remainder };
        }
 
-       public override String ToString()
+       public override string ToString()
        {
            StringBuilder result = new StringBuilder(8 * Degree);
            for (int degree = Degree; degree >= 0; degree--)
@@ -3229,13 +3229,13 @@ namespace HC.View
            get { return generatorBase; }
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       override public String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        override public string ToString()
        {
            return "GF(0x" + primitive.ToString("X") + ',' + size + ')';
        }
@@ -3310,7 +3310,7 @@ namespace HC.View
          25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, -1, -1, -1, -1, -1,  // 0x50-0x5f
       };
 
-       internal static String DEFAULT_BYTE_MODE_ENCODING = "ISO-8859-1";
+       internal static string DEFAULT_BYTE_MODE_ENCODING = "ISO-8859-1";
 
        // The mask penalty calculation is complicated.  See Table 21 of JISX0510:2004 (p.45) for details.
        // Basically it applies four rules and summate all penalties.
@@ -3334,7 +3334,7 @@ namespace HC.View
        /// <param name="content">text to encode</param>
        /// <param name="ecLevel">error correction level to use</param>
        /// <returns><see cref="QRCode"/> representing the encoded QR code</returns>
-       public static QRCode encode(String content, ErrorCorrectionLevel ecLevel)
+       public static QRCode encode(string content, ErrorCorrectionLevel ecLevel)
        {
            return encode(content, ecLevel, null);
        }
@@ -3346,7 +3346,7 @@ namespace HC.View
        /// <param name="ecLevel">The ec level.</param>
        /// <param name="hints">The hints.</param>
        /// <returns></returns>
-       public static QRCode encode(String content,
+       public static QRCode encode(string content,
                                  ErrorCorrectionLevel ecLevel,
                                  IDictionary<EncodeHintType, object> hints)
        {
@@ -3401,7 +3401,7 @@ namespace HC.View
            QRVersion version;
            if (hints != null && hints.ContainsKey(EncodeHintType.QR_VERSION))
            {
-               int versionNumber = Int32.Parse(hints[EncodeHintType.QR_VERSION].ToString());
+               int versionNumber = int.Parse(hints[EncodeHintType.QR_VERSION].ToString());
                version = QRVersion.getVersionForNumber(versionNumber);
                int bitsNeeded = calculateBitsNeeded(mode, headerBits, dataBits, version);
                if (!willFit(bitsNeeded, version, ecLevel))
@@ -3496,7 +3496,7 @@ namespace HC.View
        /// </summary>
        /// <param name="content">The content.</param>
        /// <returns></returns>
-       public static Mode chooseMode(String content)
+       public static Mode chooseMode(string content)
        {
            return chooseMode(content, null);
        }
@@ -3508,7 +3508,7 @@ namespace HC.View
        /// <param name="content">The content.</param>
        /// <param name="encoding">The encoding.</param>
        /// <returns></returns>
-       private static Mode chooseMode(String content, String encoding)
+       private static Mode chooseMode(string content, string encoding)
        {
            if ("Shift_JIS".Equals(encoding) && isOnlyDoubleByteKanji(content))
            {
@@ -3546,7 +3546,7 @@ namespace HC.View
            return Mode.BYTE;
        }
 
-       private static bool isOnlyDoubleByteKanji(String content)
+       private static bool isOnlyDoubleByteKanji(string content)
        {
            byte[] bytes;
            try
@@ -3581,7 +3581,7 @@ namespace HC.View
                                             QRVersion version,
                                             ByteMatrix matrix)
        {
-           int minPenalty = Int32.MaxValue;  // Lower penalty is better.
+           int minPenalty = int.MaxValue;  // Lower penalty is better.
            int bestMaskPattern = -1;
            // We try all mask patterns to choose the best one.
            for (int maskPattern = 0; maskPattern < QRCode.NUM_MASK_PATTERNS; maskPattern++)
@@ -3888,10 +3888,10 @@ namespace HC.View
        /// <param name="mode">The mode.</param>
        /// <param name="bits">The bits.</param>
        /// <param name="encoding">The encoding.</param>
-       internal static void appendBytes(String content,
+       internal static void appendBytes(string content,
                                Mode mode,
                                BitArray bits,
-                               String encoding)
+                               string encoding)
        {
            if (mode.Equals(Mode.NUMERIC))
                appendNumericBytes(content, bits);
@@ -3908,7 +3908,7 @@ namespace HC.View
                            throw new WriterException("Invalid mode: " + mode);
        }
 
-       internal static void appendNumericBytes(String content, BitArray bits)
+       internal static void appendNumericBytes(string content, BitArray bits)
        {
            int length = content.Length;
 
@@ -3940,7 +3940,7 @@ namespace HC.View
            }
        }
 
-       internal static void appendAlphanumericBytes(String content, BitArray bits)
+       internal static void appendAlphanumericBytes(string content, BitArray bits)
        {
            int length = content.Length;
 
@@ -3972,7 +3972,7 @@ namespace HC.View
            }
        }
 
-       internal static void append8BitBytes(String content, BitArray bits, String encoding)
+       internal static void append8BitBytes(string content, BitArray bits, string encoding)
        {
            byte[] bytes;
            try
@@ -3989,7 +3989,7 @@ namespace HC.View
            }
        }
 
-       internal static void appendKanjiBytes(String content, BitArray bits)
+       internal static void appendKanjiBytes(string content, BitArray bits)
        {
            byte[] bytes;
            try
@@ -4622,7 +4622,7 @@ namespace HC.View
        /// Initializes a new instance of the <see cref="WriterException"/> class.
        /// </summary>
        /// <param name="message">The message.</param>
-       public WriterException(String message)
+       public WriterException(string message)
            : base(message)
        {
        }
@@ -4632,7 +4632,7 @@ namespace HC.View
        /// </summary>
        /// <param name="message">The message.</param>
        /// <param name="innerExc">The inner exc.</param>
-       public WriterException(String message, Exception innerExc)
+       public WriterException(string message, Exception innerExc)
            : base(message, innerExc)
        {
        }
@@ -4673,10 +4673,10 @@ namespace HC.View
            get { return width; }
        }
 
-       /// <summary>
-       /// Gets or sets the <see cref="System.Int32"/> with the specified x.
-       /// </summary>
-       public int this[int x, int y]
+        /// <summary>
+        /// Gets or sets the <see cref="int"/> with the specified x.
+        /// </summary>
+        public int this[int x, int y]
        {
            get { return bytes[y][x]; }
            set { bytes[y][x] = (byte)value; }
@@ -4728,13 +4728,13 @@ namespace HC.View
            }
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       override public String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        override public string ToString()
        {
            var result = new StringBuilder(2 * width * height + 2);
            for (int y = 0; y < height; ++y)
@@ -4855,7 +4855,7 @@ namespace HC.View
        private static FormatInformation doDecodeFormatInformation(int maskedFormatInfo1, int maskedFormatInfo2)
        {
            // Find the int in FORMAT_INFO_DECODE_LOOKUP with fewest bits differing
-           int bestDifference = Int32.MaxValue;
+           int bestDifference = int.MaxValue;
            int bestFormatInfo = 0;
            foreach (var decodeInfo in FORMAT_INFO_DECODE_LOOKUP)
            {
@@ -4912,7 +4912,7 @@ namespace HC.View
            return (errorCorrectionLevel.ordinal() << 3) | dataMask;
        }
 
-       public override bool Equals(Object o)
+       public override bool Equals(object o)
        {
            if (!(o is FormatInformation))
            {
@@ -5097,13 +5097,13 @@ namespace HC.View
        /// </summary>
        public int Bits { get; set; }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public override String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
        {
            return Name.ToString();
        }
@@ -5163,13 +5163,13 @@ namespace HC.View
        /// </value>
        public ByteMatrix Matrix { get; set; }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public override String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
        {
            var result = new StringBuilder(200);
            result.Append("<<\n");
@@ -5240,7 +5240,7 @@ namespace HC.View
 
        private readonly int bits;
 
-       private ErrorCorrectionLevel(int ordinal, int bits, String name)
+       private ErrorCorrectionLevel(int ordinal, int bits, string name)
        {
            this.ordinal_Renamed_Field = ordinal;
            this.bits = bits;
@@ -5261,7 +5261,7 @@ namespace HC.View
        /// <summary>
        /// Gets the name.
        /// </summary>
-       public String Name
+       public string Name
        {
            get
            {
@@ -5270,7 +5270,7 @@ namespace HC.View
        }
 
        private readonly int ordinal_Renamed_Field;
-       private readonly String name;
+       private readonly string name;
 
        /// <summary>
        /// Ordinals this instance.
@@ -5281,13 +5281,13 @@ namespace HC.View
            return ordinal_Renamed_Field;
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public override String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
        {
            return name;
        }
@@ -5318,7 +5318,7 @@ namespace HC.View
        /// <param name="width">The preferred width in pixels</param>
        /// <param name="height">The preferred height in pixels</param>
        /// <returns> The generated barcode as a Matrix of unsigned bytes (0 == black, 255 == white)</returns>
-       BitMatrix encode(System.String contents, BarcodeFormat format, int width, int height);
+       BitMatrix encode(string contents, BarcodeFormat format, int width, int height);
 
        /// <summary> </summary>
        /// <param name="contents">The contents to encode in the barcode</param>
@@ -5327,52 +5327,52 @@ namespace HC.View
        /// <param name="height">The preferred height in pixels</param>
        /// <param name="hints">Additional parameters to supply to the encoder</param>
        /// <returns> The generated barcode as a Matrix of unsigned bytes (0 == black, 255 == white)</returns>
-       BitMatrix encode(String contents, BarcodeFormat format, int width, int height, IDictionary<EncodeHintType, object> hints);
+       BitMatrix encode(string contents, BarcodeFormat format, int width, int height, IDictionary<EncodeHintType, object> hints);
    }
    public enum EncodeHintType
    {
-       /// <summary>
-       /// Specifies the width of the barcode image
-       /// type: <see cref="System.Int32" />
-       /// </summary>
-       WIDTH,
+        /// <summary>
+        /// Specifies the width of the barcode image
+        /// type: <see cref="int" />
+        /// </summary>
+        WIDTH,
 
-       /// <summary>
-       /// Specifies the height of the barcode image
-       /// type: <see cref="System.Int32" />
-       /// </summary>
-       HEIGHT,
+        /// <summary>
+        /// Specifies the height of the barcode image
+        /// type: <see cref="int" />
+        /// </summary>
+        HEIGHT,
 
-       /// <summary>
-       /// Don't put the content string into the output image.
-       /// type: <see cref="System.Boolean" />
-       /// </summary>
-       PURE_BARCODE,
+        /// <summary>
+        /// Don't put the content string into the output image.
+        /// type: <see cref="bool" />
+        /// </summary>
+        PURE_BARCODE,
 
-       /// <summary>
-       /// Specifies what degree of error correction to use, for example in QR Codes.
-       /// Type depends on the encoder. For example for QR codes it's type
-       /// <see cref="ZXing.QrCode.Internal.ErrorCorrectionLevel" />
-       /// For Aztec it is of type <see cref="System.Int32" />, representing the minimal percentage of error correction words. 
-       /// In all cases, it can also be a <see cref="System.String" /> representation of the desired value as well.
-       /// Note: an Aztec symbol should have a minimum of 25% EC words.
-       /// For PDF417 it is of type <see cref="ZXing.PDF417.Internal.PDF417ErrorCorrectionLevel"/> or <see cref="System.Int32" /> (between 0 and 8),
-       /// </summary>
-       ERROR_CORRECTION,
+        /// <summary>
+        /// Specifies what degree of error correction to use, for example in QR Codes.
+        /// Type depends on the encoder. For example for QR codes it's type
+        /// <see cref="ZXing.QrCode.Internal.ErrorCorrectionLevel" />
+        /// For Aztec it is of type <see cref="int" />, representing the minimal percentage of error correction words. 
+        /// In all cases, it can also be a <see cref="string" /> representation of the desired value as well.
+        /// Note: an Aztec symbol should have a minimum of 25% EC words.
+        /// For PDF417 it is of type <see cref="ZXing.PDF417.Internal.PDF417ErrorCorrectionLevel"/> or <see cref="int" /> (between 0 and 8),
+        /// </summary>
+        ERROR_CORRECTION,
 
-       /// <summary>
-       /// Specifies what character encoding to use where applicable.
-       /// type: <see cref="System.String" />
-       /// </summary>
-       CHARACTER_SET,
+        /// <summary>
+        /// Specifies what character encoding to use where applicable.
+        /// type: <see cref="string" />
+        /// </summary>
+        CHARACTER_SET,
 
-       /// <summary>
-       /// Specifies margin, in pixels, to use when generating the barcode. The meaning can vary
-       /// by format; for example it controls margin before and after the barcode horizontally for
-       /// most 1D formats.
-       /// type: <see cref="System.Int32" />, or <see cref="System.String" /> representation of the integer value
-       /// </summary>
-       MARGIN,
+        /// <summary>
+        /// Specifies margin, in pixels, to use when generating the barcode. The meaning can vary
+        /// by format; for example it controls margin before and after the barcode horizontally for
+        /// most 1D formats.
+        /// type: <see cref="int" />, or <see cref="string" /> representation of the integer value
+        /// </summary>
+        MARGIN,
 
        /// <summary>
        /// Specifies the aspect ratio to use.  Default is 4.
@@ -5380,19 +5380,19 @@ namespace HC.View
        /// </summary>
        PDF417_ASPECT_RATIO,
 
-       /// <summary>
-       /// Specifies whether to use compact mode for PDF417
-       /// type: <see cref="System.Boolean" />, or "true" or "false"
-       /// <see cref="System.String" /> value
-       /// </summary>
-       PDF417_COMPACT,
+        /// <summary>
+        /// Specifies whether to use compact mode for PDF417
+        /// type: <see cref="bool" />, or "true" or "false"
+        /// <see cref="string" /> value
+        /// </summary>
+        PDF417_COMPACT,
 
-       /// <summary>
-       /// Specifies what compaction mode to use for PDF417.
-       /// type: <see cref="ZXing.PDF417.Internal.Compaction" /> or <see cref="System.String" /> value of one of its
-       /// enum values
-       /// </summary>
-       PDF417_COMPACTION,
+        /// <summary>
+        /// Specifies what compaction mode to use for PDF417.
+        /// type: <see cref="ZXing.PDF417.Internal.Compaction" /> or <see cref="string" /> value of one of its
+        /// enum values
+        /// </summary>
+        PDF417_COMPACTION,
 
        /// <summary>
        /// Specifies the minimum and maximum number of rows and columns for PDF417.
@@ -5400,16 +5400,16 @@ namespace HC.View
        /// </summary>
        PDF417_DIMENSIONS,
 
-       /// <summary>
-       /// Don't append ECI segment.
-       /// That is against the specification of QR Code but some
-       /// readers have problems if the charset is switched from
-       /// ISO-8859-1 (default) to UTF-8 with the necessary ECI segment.
-       /// If you set the property to true you can use UTF-8 encoding
-       /// and the ECI segment is omitted.
-       /// type: <see cref="System.Boolean" />
-       /// </summary>
-       DISABLE_ECI,
+        /// <summary>
+        /// Don't append ECI segment.
+        /// That is against the specification of QR Code but some
+        /// readers have problems if the charset is switched from
+        /// ISO-8859-1 (default) to UTF-8 with the necessary ECI segment.
+        /// If you set the property to true you can use UTF-8 encoding
+        /// and the ECI segment is omitted.
+        /// type: <see cref="bool" />
+        /// </summary>
+        DISABLE_ECI,
 
        /// <summary>
        /// Specifies the matrix shape for Data Matrix (type <see cref="ZXing.Datamatrix.Encoder.SymbolShapeHint"/>)
@@ -5438,27 +5438,27 @@ namespace HC.View
        /// </summary>
        DATA_MATRIX_DEFAULT_ENCODATION,
 
-       /// <summary>
-       /// Specifies the required number of layers for an Aztec code.
-       /// A negative number (-1, -2, -3, -4) specifies a compact Aztec code
-       /// 0 indicates to use the minimum number of layers (the default)
-       /// A positive number (1, 2, .. 32) specifies a normal (non-compact) Aztec code
-       /// type: <see cref="System.Int32" />, or <see cref="System.String" /> representation of the integer value
-       /// </summary>
-       AZTEC_LAYERS,
+        /// <summary>
+        /// Specifies the required number of layers for an Aztec code.
+        /// A negative number (-1, -2, -3, -4) specifies a compact Aztec code
+        /// 0 indicates to use the minimum number of layers (the default)
+        /// A positive number (1, 2, .. 32) specifies a normal (non-compact) Aztec code
+        /// type: <see cref="int" />, or <see cref="string" /> representation of the integer value
+        /// </summary>
+        AZTEC_LAYERS,
 
-       /// <summary>
-       /// Specifies the exact version of QR code to be encoded.
-       /// (Type <see cref="System.Int32" />, or <see cref="System.String" /> representation of the integer value).
-       /// </summary>
-       QR_VERSION,
+        /// <summary>
+        /// Specifies the exact version of QR code to be encoded.
+        /// (Type <see cref="int" />, or <see cref="string" /> representation of the integer value).
+        /// </summary>
+        QR_VERSION,
 
-       /// <summary>
-       /// Specifies whether the data should be encoded to the GS1 standard
-       /// type: <see cref="System.Boolean" />, or "true" or "false"
-       /// <see cref="System.String" /> value
-       /// </summary>
-       GS1_FORMAT,
+        /// <summary>
+        /// Specifies whether the data should be encoded to the GS1 standard
+        /// type: <see cref="bool" />, or "true" or "false"
+        /// <see cref="string" /> value
+        /// </summary>
+        GS1_FORMAT,
    }
    internal sealed class BlockPair
    {
@@ -5592,7 +5592,7 @@ namespace HC.View
            return bits;
        }
 
-       public static BitMatrix parse(String stringRepresentation, String setString, String unsetString)
+       public static BitMatrix parse(string stringRepresentation, string setString, string unsetString)
        {
            if (stringRepresentation == null)
            {
@@ -5975,14 +5975,14 @@ namespace HC.View
            return new int[] { x, y };
        }
 
-       /// <summary>
-       /// Determines whether the specified <see cref="System.Object"/> is equal to this instance.
-       /// </summary>
-       /// <param name="obj">The <see cref="System.Object"/> to compare with this instance.</param>
-       /// <returns>
-       ///   <c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.
-       /// </returns>
-       public override bool Equals(object obj)
+        /// <summary>
+        /// Determines whether the specified <see cref="object"/> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object"/> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
        {
            if (!(obj is BitMatrix))
            {
@@ -6023,49 +6023,49 @@ namespace HC.View
            return hash;
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public override String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
        {
 
            return ToString("X ", "  ", Environment.NewLine);
 
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <param name="setString">The set string.</param>
-       /// <param name="unsetString">The unset string.</param>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public String ToString(String setString, String unsetString)
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <param name="setString">The set string.</param>
+        /// <param name="unsetString">The unset string.</param>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public string ToString(string setString, string unsetString)
        {
 
            return buildToString(setString, unsetString, Environment.NewLine);
 
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <param name="setString">The set string.</param>
-       /// <param name="unsetString">The unset string.</param>
-       /// <param name="lineSeparator">The line separator.</param>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public String ToString(String setString, String unsetString, String lineSeparator)
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <param name="setString">The set string.</param>
+        /// <param name="unsetString">The unset string.</param>
+        /// <param name="lineSeparator">The line separator.</param>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public string ToString(string setString, string unsetString, string lineSeparator)
        {
            return buildToString(setString, unsetString, lineSeparator);
        }
 
-       private String buildToString(String setString, String unsetString, String lineSeparator)
+       private string buildToString(string setString, string unsetString, string lineSeparator)
        {
            var result = new StringBuilder(height * (width + 1));
            for (int y = 0; y < height; y++)
@@ -6324,7 +6324,7 @@ namespace HC.View
 
        internal static QRVersion decodeVersionInformation(int versionBits)
        {
-           int bestDifference = Int32.MaxValue;
+           int bestDifference = int.MaxValue;
            int bestVersion = 0;
            for (int i = 0; i < VERSION_DECODE_INFO.Length; i++)
            {
@@ -6501,13 +6501,13 @@ namespace HC.View
            }
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public override String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
        {
            return Convert.ToString(versionNumber);
        }
@@ -7246,14 +7246,14 @@ namespace HC.View
            return new int[(size + 31) >> 5];
        }
 
-       /// <summary>
-       /// Determines whether the specified <see cref="System.Object"/> is equal to this instance.
-       /// </summary>
-       /// <param name="o">The <see cref="System.Object"/> to compare with this instance.</param>
-       /// <returns>
-       ///   <c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.
-       /// </returns>
-       public override bool Equals(Object o)
+        /// <summary>
+        /// Determines whether the specified <see cref="object"/> is equal to this instance.
+        /// </summary>
+        /// <param name="o">The <see cref="object"/> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="object"/> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object o)
        {
            var other = o as BitArray;
            if (other == null)
@@ -7284,13 +7284,13 @@ namespace HC.View
            return hash;
        }
 
-       /// <summary>
-       /// Returns a <see cref="System.String"/> that represents this instance.
-       /// </summary>
-       /// <returns>
-       /// A <see cref="System.String"/> that represents this instance.
-       /// </returns>
-       public override String ToString()
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
        {
            var result = new System.Text.StringBuilder(size);
            for (int i = 0; i < size; i++)

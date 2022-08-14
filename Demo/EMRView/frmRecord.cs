@@ -398,8 +398,7 @@ namespace EMRView
         /// <summary> 文档变动状态发生变化时触发 </summary>
         private void DoChangedSwitch(object sender, EventArgs e)
         {
-            if (FOnChangedSwitch != null)
-                FOnChangedSwitch(this, e);
+            FOnChangedSwitch?.Invoke(this, e);
         }
 
         /// <summary> 文档编辑时只读或当前位置不可编辑时触发 </summary>
@@ -411,8 +410,7 @@ namespace EMRView
         /// <summary> 文档只读状态发生变化时触发 </summary>
         private void DoReadOnlySwitch(object sender, EventArgs e)
         {
-            if (FOnReadOnlySwitch != null)
-                FOnReadOnlySwitch(sender, e);
+            FOnReadOnlySwitch?.Invoke(sender, e);
         }
 
         /// <summary> 文档垂直滚动条滚动时触发 </summary>
@@ -822,22 +820,19 @@ namespace EMRView
             if (aItem is DeCombobox)
                 (aItem as DeCombobox).OnPopupItem = DoDeComboboxPopupItem;
 
-            if (FOnInsertDeItem != null)
-                FOnInsertDeItem(FEmrView, sender as HCSection, aData, aItem);
+            FOnInsertDeItem?.Invoke(FEmrView, sender as HCSection, aData, aItem);
         }
 
         /// <summary> 调用保存病历方法 </summary>
         protected void DoSave()
         {
-            if (FOnSave != null)
-                FOnSave(this, null);
+            FOnSave?.Invoke(this, null);
         }
 
         /// <summary> 调用保存病历结构方法 </summary>
         protected void DoSaveStructure()
         {
-            if (FOnSaveStructure != null)
-                FOnSaveStructure(this, null);
+            FOnSaveStructure?.Invoke(this, null);
         }
 
         public object ObjectData;
@@ -1791,8 +1786,7 @@ namespace EMRView
 
         private void mniPrintPreview_Click(object sender, EventArgs e)
         {
-            if (FOnPrintPreview != null)
-                FOnPrintPreview(sender, e);
+            FOnPrintPreview?.Invoke(sender, e);
         }
 
         private void btnPrintCurLineToPage_Click(object sender, EventArgs e)

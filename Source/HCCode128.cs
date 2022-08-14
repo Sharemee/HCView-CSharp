@@ -42,12 +42,11 @@ namespace HC.View
             if (FWidth != vW)
             {
                 FWidth = vW;
-                if (FOnWidthChanged != null)
-                    FOnWidthChanged(this, null);
+                FOnWidthChanged?.Invoke(this, null);
             }
         }
 
-        private void OneBarProps(Char code, ref int width, ref HCCodeLineType lineType)
+        private void OneBarProps(char code, ref int width, ref HCCodeLineType lineType)
         {
             switch (code)
             {

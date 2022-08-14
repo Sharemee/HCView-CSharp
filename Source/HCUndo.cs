@@ -137,7 +137,7 @@ namespace HC.View
         }
     }
 
-    public class HCCustomUndoAction : Object
+    public class HCCustomUndoAction : object
     {
         private HCAction FTag;
         private int FItemNo;  // 事件发生时的ItemNo
@@ -689,8 +689,7 @@ namespace HC.View
 
         private void _OnDeleteItem(object sender, NListEventArgs<HCUndo> e)
         {
-            if (FOnUndoDestroy != null)
-                FOnUndoDestroy(e.Item);
+            FOnUndoDestroy?.Invoke(e.Item);
         }
 
         private void _OnClear(object sender, EventArgs e)
@@ -769,8 +768,7 @@ namespace HC.View
         // Undo 子方法
         private void DoSeekUndoEx(ref int ASeek)
         {
-            if (FOnUndo != null)
-                FOnUndo(this[ASeek]);
+            FOnUndo?.Invoke(this[ASeek]);
 
             this[ASeek].IsUndo = false;
             ASeek--;
@@ -834,8 +832,7 @@ namespace HC.View
         private void DoSeekRedoEx(ref int ASeek)
         {
             ASeek++;
-            if (FOnRedo != null)
-                FOnRedo(this[ASeek]);
+            FOnRedo?.Invoke(this[ASeek]);
 
             this[ASeek].IsUndo = true;
         }

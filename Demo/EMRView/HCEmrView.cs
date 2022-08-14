@@ -121,8 +121,7 @@ namespace EMRView
 
         private void DoSyncDeItem(object sender, HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnSyncDeItem != null)
-                FOnSyncDeItem(sender, aData, aItem);
+            FOnSyncDeItem?.Invoke(sender, aData, aItem);
         }
 
         private void InsertEmrTraceItem(string aText, bool add = true)
@@ -399,7 +398,7 @@ namespace EMRView
         /// <summary> 指定的节当前是否可编辑 </summary>
         /// <param name="sender">文档节</param>
         /// <returns>True：可编辑，False：不可编辑</returns>
-        protected override bool DoSectionCanEdit(Object sender)
+        protected override bool DoSectionCanEdit(object sender)
         {
             if (FIgnoreAcceptAction)
                 return true;
@@ -1331,7 +1330,7 @@ namespace EMRView
         /// <param name="ADataScreenBottom">绘制时呈现Data的Bottom位置</param>
         /// <param name="ACanvas">画布</param>
         /// <param name="APaintInfo">绘制时的其它信息</param>
-        protected override void DoSectionDrawItemPaintAfter(Object sender, HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect, RECT aClearRect,
+        protected override void DoSectionDrawItemPaintAfter(object sender, HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect, RECT aClearRect,
             int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop, int aDataScreenBottom, HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
             if (aPaintInfo.Print && !FPrintUnAlloc)

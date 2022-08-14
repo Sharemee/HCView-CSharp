@@ -11,7 +11,7 @@ using System.Xml;
 
 namespace HC.View
 {
-    public class HCViewLite : Object
+    public class HCViewLite : object
     {
         private HCStyle FStyle;
         private List<HCSection> FSections;

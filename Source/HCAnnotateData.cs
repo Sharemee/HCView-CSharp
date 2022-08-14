@@ -119,8 +119,7 @@ namespace HC.View
             if (aItem.StyleNo == HCStyle.Annotate && (aItem as HCAnnotateItem).MarkType == MarkType.cmtBeg)
             {
                 FAnnotateCount++;
-                if (FOnInsertAnnotate != null)
-                    FOnInsertAnnotate(this, aItem as HCAnnotateItem);
+                FOnInsertAnnotate?.Invoke(this, aItem as HCAnnotateItem);
             }
 
             base.DoInsertItem(aItem);
@@ -131,8 +130,7 @@ namespace HC.View
             if (aItem.StyleNo == HCStyle.Annotate && (aItem as HCAnnotateItem).MarkType == MarkType.cmtBeg)
             {
                 FAnnotateCount--;
-                if (FOnRemoveAnnotate != null)
-                    FOnRemoveAnnotate(this, aItem as HCAnnotateItem);
+                FOnRemoveAnnotate?.Invoke(this, aItem as HCAnnotateItem);
             }
 
             base.DoRemoveItem(aItem);

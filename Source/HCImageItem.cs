@@ -24,7 +24,7 @@ namespace HC.View
         private HCShapeManager FShapeManager;
         private bool FEmpty = true;
 
-        private void DoImageChange(Object sender)
+        private void DoImageChange(object sender)
         {
             //if (FImage.PixelFormat != System.Drawing.Imaging.PixelFormat.Format24bppRgb)
             //    FImage = FImage.Clone(new Rectangle(0, 0, FImage.Width, FImage.Height), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
@@ -202,14 +202,14 @@ namespace HC.View
         {
             if (Width > aWidth)
             {
-                Single vBL = (float)Width / aWidth;
+                float vBL = (float)Width / aWidth;
                 Width = aWidth;
                 Height = (int)Math.Round(Height / vBL);
             }
 
             if (Height > aHeight)
             {
-                Single vBL = (float)Height / aHeight;
+                float vBL = (float)Height / aHeight;
                 Height = aHeight;
                 Width = (int)Math.Round(Width / vBL);
             }

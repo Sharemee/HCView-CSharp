@@ -24,7 +24,7 @@ namespace EMRView
         public const int EMRSTYLE_YUEJING = -1003;  // 月经公式
         public const byte EmrViewVersion = 1;
 
-        public static bool IsPY(Char aChar)
+        public static bool IsPY(char aChar)
         {
             return ((aChar >= 'a') && (aChar <= 'z'))
                 || ((aChar >= 'A') && (aChar <= 'Z'));
@@ -89,14 +89,14 @@ namespace EMRView
         }
     }
 
-    public class ServerParam : Object
+    public class ServerParam : object
     {
         public string Hospital = "";
         public bool PasteDifferent = true;  // 是否允许不同患者之间粘贴复制的内容
         public bool PasteOutSide = true;  // 是否允许病历内容粘贴到其他程序中
     }
 
-    public class CustomUserInfo : Object
+    public class CustomUserInfo : object
     {
         private string 
             FID,  // 用户ID

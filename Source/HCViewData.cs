@@ -477,8 +477,7 @@ namespace HC.View
             if (FCaretItemChanged)
             {
                 FCaretItemChanged = false;
-                if (FOnCaretItemChanged != null)
-                    FOnCaretItemChanged(this, Items[SelectInfo.StartItemNo]);
+                FOnCaretItemChanged?.Invoke(this, Items[SelectInfo.StartItemNo]);
             }
         }
 

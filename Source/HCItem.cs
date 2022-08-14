@@ -57,7 +57,7 @@ namespace HC.View
         private HCViewModel FViewModel;
         private List<HCCustomItem> FTopItems;
         private int FWindowWidth, FWindowHeight;
-        private Single
+        private float
             FScaleX, FScaleY,  // 目标画布和显示器画布dpi比例(打印机dpi和显示器dpi不一致时的缩放比例)
             FZoom;  // 视图设置的放大比例
         public int DPI;
@@ -191,21 +191,21 @@ namespace HC.View
         }
 
         /// <summary> 横向缩放 </summary>
-        public Single ScaleX
+        public float ScaleX
         {
             get { return FScaleX; }
             set { FScaleX = value; }
         }
 
         /// <summary> 纵向缩放 </summary>
-        public Single ScaleY
+        public float ScaleY
         {
             get { return FScaleY; }
             set { FScaleY = value; }
         }
 
         /// <summary> 缩放比例 </summary>
-        public Single Zoom
+        public float Zoom
         {
             get { return FZoom; }
             set { FZoom = value; }
@@ -359,8 +359,7 @@ namespace HC.View
 
         public virtual void DblClick(int X, int Y)
         {
-            if (FOnDblClick != null)
-                FOnDblClick(this, null);
+            FOnDblClick?.Invoke(this, null);
         }
 
         public virtual bool MouseDown(MouseEventArgs e)
@@ -587,14 +586,12 @@ namespace HC.View
 
         private void HCItems_OnInsert(object sender, NListEventArgs<HCCustomItem> e)
         {
-            if (FOnInsertItem != null)
-                FOnInsertItem(e.Item);
+            FOnInsertItem?.Invoke(e.Item);
         }
 
         private void HCItems_OnRemove(object sender, NListEventArgs<HCCustomItem> e)
         {
-            if (FOnRemoveItem != null)
-                FOnRemoveItem(e.Item);
+            FOnRemoveItem?.Invoke(e.Item);
         }
         
         public HCItems()

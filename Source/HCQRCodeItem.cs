@@ -92,14 +92,14 @@ namespace HC.View
         {
             if (Width > aWidth)
             {
-                Single vBL = (float)Width / aWidth;
+                float vBL = (float)Width / aWidth;
                 Width = aWidth;
                 Height = (int)Math.Round(Height / vBL);
             }
 
             if (Height > aHeight)
             {
-                Single vBL = (float)Height / aHeight;
+                float vBL = (float)Height / aHeight;
                 Height = aHeight;
                 Width = (int)Math.Round(Width / vBL);
             }

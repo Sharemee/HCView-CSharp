@@ -30,7 +30,7 @@ namespace HC.View
         private ExpressArea FActiveArea, FMouseMoveArea;
 
         // 类内部方法
-        private void ApplySupSubStyle(HCTextStyle aTextStyle, HCCanvas aCanvas, Single aScale = 1)
+        private void ApplySupSubStyle(HCTextStyle aTextStyle, HCCanvas aCanvas, float aScale = 1)
         {
             if (aTextStyle.BackColor == HC.HCTransparentColor)
                 aCanvas.Brush.Style = HCBrushStyle.bsClear;
@@ -308,12 +308,12 @@ namespace HC.View
             }
         }
 
-        public override void KeyPress(ref Char key)
+        public override void KeyPress(ref char key)
         {
             if (FActiveArea != ExpressArea.ceaNone)
                 InsertText(key.ToString());
             else
-                key = (Char)0;
+                key = (char)0;
         }
 
         public override bool InsertText(string aText)

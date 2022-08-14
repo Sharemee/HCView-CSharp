@@ -591,7 +591,7 @@ namespace HC.Win32
 		[DllImport("winmm")] public static extern int midiStreamOut(HANDLE hms, ref MIDIHDR pmh, int cbmh);
 		[DllImport("winmm")] public static extern int midiStreamPause(HANDLE hms);
 		[DllImport("winmm")] public static extern int midiStreamPosition(HANDLE hms, ref MMTIME lpmmt, int cbmmt);
-		[DllImport("winmm")] public static extern int midiStreamProperty(HANDLE hms, Byte lppropdata, int dwProperty);
+		[DllImport("winmm")] public static extern int midiStreamProperty(HANDLE hms, byte lppropdata, int dwProperty);
 		[DllImport("winmm")] public static extern int midiStreamRestart(HANDLE hms);
 		[DllImport("winmm")] public static extern int midiStreamStop(HANDLE hms);
 		[DllImport("winmm")] public static extern int mixerClose(HANDLE hmx);

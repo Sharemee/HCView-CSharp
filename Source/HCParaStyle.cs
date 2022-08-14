@@ -45,7 +45,7 @@ namespace HC.View
     public class HCParaStyle : HCObject
     {
         private ParaLineSpaceMode FLineSpaceMode;
-        private Single FLineSpace;
+        private float FLineSpace;
 
         // 单位像素
         private int FFirstIndentPix,// 首行缩进
@@ -53,7 +53,7 @@ namespace HC.View
                     FRightIndentPix;  // 右缩进
 
         // 单位毫米
-        private Single FFirstIndent,// 首行缩进
+        private float FFirstIndent,// 首行缩进
                        FLeftIndent,  // 左缩进
                        FRightIndent;  // 右缩进
 
@@ -62,7 +62,7 @@ namespace HC.View
         private ParaAlignHorz FAlignHorz;
         private ParaAlignVert FAlignVert;
 
-        protected void SetFirstIndent(Single value)
+        protected void SetFirstIndent(float value)
         {
             if (FFirstIndent != value)
             {
@@ -71,7 +71,7 @@ namespace HC.View
             }
         }
 
-        protected void SetLeftIndent(Single value)
+        protected void SetLeftIndent(float value)
         {
             if (FLeftIndent != value)
             {
@@ -80,7 +80,7 @@ namespace HC.View
             }
         }
 
-        protected void SetRightIndent(Single value)
+        protected void SetRightIndent(float value)
         {
             if (FRightIndent != value)
             {
@@ -432,25 +432,25 @@ namespace HC.View
             set { FLineSpaceMode = value; }
         }
 
-        public Single LineSpace
+        public float LineSpace
         {
             get { return FLineSpace; }
             set { FLineSpace = value; }
         }
 
-        public Single FirstIndent 
+        public float FirstIndent 
         {
             get { return FFirstIndent; }
             set { SetFirstIndent(value); }
         }
 
-        public Single LeftIndent
+        public float LeftIndent
         { 
             get { return FLeftIndent; }
             set { SetLeftIndent(value); }
         }
 
-        public Single RightIndent
+        public float RightIndent
         {
             get { return FRightIndent; }
             set { SetRightIndent(value); }

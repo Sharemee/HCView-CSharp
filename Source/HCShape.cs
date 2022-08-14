@@ -184,8 +184,7 @@ namespace HC.View
         public virtual void StructOver()
         {
             FStructState = HCStructState.hstcStop;
-            if (FOnStructOver != null)
-                FOnStructOver(this, null);
+            FOnStructOver?.Invoke(this, null);
         }
 
         public HCShapeStyle Style
@@ -1210,8 +1209,7 @@ namespace HC.View
         private void DoShapeStructOver(object sender, EventArgs e)
         {
             ActiveIndex = -1;
-            if (FOnStructOver != null)
-                FOnStructOver(sender, e);
+            FOnStructOver?.Invoke(sender, e);
         }
 
         private void SetOperStyle(HCShapeStyle value)

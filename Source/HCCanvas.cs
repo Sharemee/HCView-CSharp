@@ -122,8 +122,7 @@ namespace HC.View
             if (FUpdateCount == 0)
             {
                 ReCreateHandle();
-                if (FOnChanged != null)
-                    FOnChanged(this, null);
+                FOnChanged?.Invoke(this, null);
             }
         }
 
@@ -282,8 +281,7 @@ namespace HC.View
             if (FUpdateCount == 0)
             {
                 ReCreateHandle();
-                if (FOnChanged != null)
-                    FOnChanged(this, null);
+                FOnChanged?.Invoke(this, null);
             }
         }
 
@@ -363,7 +361,7 @@ namespace HC.View
     public class HCFont : HCObject
     {
         private Color FColor = Color.Black;
-        private Single FSize = 10.5F;  // point size
+        private float FSize = 10.5F;  // point size
         private string FFamily = "宋体";
         private IntPtr FHandle = IntPtr.Zero;
         private EventHandler FOnChanged;
@@ -431,8 +429,7 @@ namespace HC.View
             if (FUpdateCount == 0)
             {
                 ReCreateHandle();
-                if (FOnChanged != null)
-                    FOnChanged(this, null);
+                FOnChanged?.Invoke(this, null);
             }
         }
 
@@ -445,7 +442,7 @@ namespace HC.View
             }
         }
 
-        protected void SetSize(Single value)
+        protected void SetSize(float value)
         {
             if (FSize != value)
             {
@@ -494,7 +491,7 @@ namespace HC.View
             set { SetColor(value); }
         }
 
-        public Single Size
+        public float Size
         {
             get { return FSize; }
             set { SetSize(value); }

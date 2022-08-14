@@ -170,7 +170,7 @@ namespace HC.View
             }
         }
 
-        private void DoVScrollChange(Object Sender, ScrollCode ScrollCode, int ScrollPos)
+        private void DoVScrollChange(object Sender, ScrollCode ScrollCode, int ScrollPos)
         {
             FStyle.UpdateInfoRePaint();
             FStyle.UpdateInfoReCaret(false);
@@ -188,8 +188,7 @@ namespace HC.View
 
         private void DoCaretChange()
         {
-            if (FOnCaretChange != null)
-                FOnCaretChange(this, null);
+            FOnCaretChange?.Invoke(this, null);
         }
 
         private void DoDataCheckUpdateInfo()
@@ -202,8 +201,7 @@ namespace HC.View
         {
             FChanged = true;
             DoMapChanged();
-            if (FOnChange != null)
-                FOnChange(this, null);
+            FOnChange?.Invoke(this, null);
         }
 
         private void CalcScrollRang()
@@ -445,7 +443,7 @@ namespace HC.View
 
             if (HC.IsKeyPressWant(e))
             {
-                Char vKey = e.KeyChar;
+                char vKey = e.KeyChar;
                 FData.KeyPress(ref vKey);
                 DoChange();
                 CheckUpdateInfo();
@@ -466,14 +464,12 @@ namespace HC.View
 
         protected virtual void DoDataInsertItem(HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnInsertItem != null)
-                FOnInsertItem(aData, aItem);
+            FOnInsertItem?.Invoke(aData, aItem);
         }
 
         protected virtual void DoDataRemoveItem(HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnRemoveItem != null)
-                FOnRemoveItem(aData, aItem);
+            FOnRemoveItem?.Invoke(aData, aItem);
         }
 
         private void DoDataItemReFormatRequest(HCCustomData aData, HCCustomItem aItem)
@@ -923,7 +919,7 @@ namespace HC.View
         }
 
         /// <summary> 修改当前光标所在段行间距 </summary>
-        public void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, Single aSpace = 1)
+        public void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, float aSpace = 1)
         {
             FData.ApplyParaLineSpace(aSpaceMode, aSpace);
             CheckUpdateInfo();
@@ -944,7 +940,7 @@ namespace HC.View
         }
 
         /// <summary> 修改当前选中文本的字号 </summary>
-        public void ApplyTextFontSize(Single aFontSize)
+        public void ApplyTextFontSize(float aFontSize)
         {
             FData.ApplyTextFontSize(aFontSize);
             CheckUpdateInfo();

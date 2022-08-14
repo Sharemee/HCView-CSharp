@@ -30,7 +30,7 @@ namespace EMRView
     }
 
     /// <summary> 数据元属性 </summary>
-    public static class DeProp : Object
+    public static class DeProp : object
     {
         public const string Index = "Index";
         public const string Code = "Code";
@@ -76,7 +76,7 @@ namespace EMRView
         public static Color DE_NOCHECKCOLOR = Color.FromArgb(0xFF, 0xDD, 0x80);
     }
 
-    public static class DeTraceLevel : Object
+    public static class DeTraceLevel : object
     {
         /// <summary> 无医师级别 </summary>
         public const string None = "";
@@ -89,7 +89,7 @@ namespace EMRView
     }
 
     /// <summary> 数据元类型 </summary>
-    public static class DeFrmtp : Object
+    public static class DeFrmtp : object
     {
         /// <summary> 单选 </summary>
         public const string Radio = "RS";

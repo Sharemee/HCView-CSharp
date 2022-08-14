@@ -36,8 +36,7 @@ namespace HC.View
             if (FChecked != value)
             {
                 FChecked = value;
-                if (FOnSetChecked != null)
-                    FOnSetChecked(this, null);
+                FOnSetChecked?.Invoke(this, null);
             }
         }
 
@@ -61,7 +60,7 @@ namespace HC.View
     public class HCRadioGroup : HCControlItem
     {
         private bool FMultSelect, FItemHit, FBoxRight;
-        private Byte FColumns, FBatchCount;
+        private byte FColumns, FBatchCount;
         private bool FColumnAlign;
         private HCList<HCRadioButton> FItems;
         private HCRadioStyle FRadioStyle = HCRadioStyle.Radio;
@@ -216,7 +215,7 @@ namespace HC.View
             return Result;
         }
 
-        private void SetColumns(Byte value)
+        private void SetColumns(byte value)
         {
             if (FColumns != value)
             {
@@ -239,8 +238,7 @@ namespace HC.View
             FItems[index].Checked = value;
             this.DoChange();
 
-            if (FOnSetItemChecked != null)
-                FOnSetItemChecked(this, null);
+            FOnSetItemChecked?.Invoke(this, null);
         }
 
         protected void DoItemNotify(object sender, NListEventArgs<HCRadioButton> e)
@@ -512,7 +510,7 @@ namespace HC.View
         {
             base.SaveToStreamRange(aStream, aStart, aEnd);
 
-            Byte vByte = FColumns;
+            byte vByte = FColumns;
             aStream.WriteByte(vByte);
 
             if (FMultSelect)
@@ -565,7 +563,7 @@ namespace HC.View
                 if (aFileVersion > 39)
                 {
                     FColumns = (byte)aStream.ReadByte();
-                    Byte vByte = (byte)aStream.ReadByte();
+                    byte vByte = (byte)aStream.ReadByte();
                     FMultSelect = HC.IsOdd(vByte >> 7);
                     FItemHit = HC.IsOdd(vByte >> 6);
                     FColumnAlign = HC.IsOdd(vByte >> 5);

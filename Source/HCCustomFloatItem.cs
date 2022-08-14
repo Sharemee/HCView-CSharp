@@ -241,14 +241,12 @@ namespace HC.View
 
         private void HCItems_OnInsert(object sender, NListEventArgs<HCCustomFloatItem> e)
         {
-            if (FOnInsertItem != null)
-                FOnInsertItem(e.Item);
+            FOnInsertItem?.Invoke(e.Item);
         }
 
         private void HCItems_OnRemove(object sender, NListEventArgs<HCCustomFloatItem> e)
         {
-            if (FOnRemoveItem != null)
-                FOnRemoveItem(e.Item);
+            FOnRemoveItem?.Invoke(e.Item);
         }
 
         public HCFloatItems()

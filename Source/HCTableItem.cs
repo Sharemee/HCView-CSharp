@@ -40,14 +40,12 @@ namespace HC.View
 
         private void OnInsertRow(object sender, NListEventArgs<HCTableRow> e)
         {
-            if (FOnRowAdd != null)
-                FOnRowAdd(e.Item);
+            FOnRowAdd?.Invoke(e.Item);
         }
 
         private void OnDeleteRow(object sender, NListEventArgs<HCTableRow> e)
         {
-            if (FOnRowRemove != null)
-                FOnRowRemove(e.Item);
+            FOnRowRemove?.Invoke(e.Item);
         }
 
         public HCTableRows()
@@ -70,7 +68,7 @@ namespace HC.View
     }
 
     /// <summary> 行跨页信息 </summary>
-    class ColCross : Object
+    class ColCross : object
     {
         public int Col;  // 单元格所在的列
         public int DrawItemNo;  // 跨页的DrawItem
@@ -84,7 +82,7 @@ namespace HC.View
         }
     }
 
-    class HCMulCellUndo : Object
+    class HCMulCellUndo : object
     {
         private bool FEnable = false;
         private void SetEnable(bool value)
@@ -127,7 +125,7 @@ namespace HC.View
             FFixRowCount,   // 固定行数量
             FFixColCount;   // 固定列数量
 
-        private Single FBorderWidthPt, FCellVPaddingMM, FCellHPaddingMM; 
+        private float FBorderWidthPt, FCellVPaddingMM, FCellHPaddingMM; 
 
         sbyte FFixCol,  // 从哪列开始固定列
               FFixRow;  // 从哪行开始固定行
@@ -479,7 +477,7 @@ namespace HC.View
             }
         }
 
-        private void SetBorderWidthPt(Single value)
+        private void SetBorderWidthPt(float value)
         {
             if (FBorderWidthPt != value)
             {
@@ -492,7 +490,7 @@ namespace HC.View
             }
         }
 
-        private void SetCellVPaddingMM(Single value)
+        private void SetCellVPaddingMM(float value)
         {
             if (FCellVPaddingMM != value)
             {
@@ -502,7 +500,7 @@ namespace HC.View
             }
         }
 
-        private void SetCellHPaddingMM(Single value)
+        private void SetCellHPaddingMM(float value)
         {
             if (FCellHPaddingMM != value)
             {
@@ -794,8 +792,7 @@ namespace HC.View
                             else  // 默认的绘制
                             {
                                 vDrawDefault = true;
-                                if (FOnCellPaintBK != null)
-                                    FOnCellPaintBK(this, FRows[vDestRow][vDestCol], vCellRect, aCanvas, aPaintInfo, ref vDrawDefault);
+                                FOnCellPaintBK?.Invoke(this, FRows[vDestRow][vDestCol], vCellRect, aCanvas, aPaintInfo, ref vDrawDefault);
 
                                 if (vDrawDefault && !aPaintInfo.Print)
                                 {
@@ -825,12 +822,9 @@ namespace HC.View
                                     aDataDrawBottom, aDataScreenTop, aDataScreenBottom,
                                     0, FCellHPaddingPix, FCellVPaddingPix, aCanvas, aPaintInfo);
 
-                                if (FOnCellPaintData != null)
-                                {
-                                    FOnCellPaintData(this, aDrawRect, vCellRect, vDestRow, vDestCol,
-                                        vDestCellDataDrawTop, aDataDrawBottom, aDataScreenTop, aDataScreenBottom,
-                                        aCanvas, aPaintInfo);
-                                }
+                                FOnCellPaintData?.Invoke(this, aDrawRect, vCellRect, vDestRow, vDestCol,
+    vDestCellDataDrawTop, aDataDrawBottom, aDataScreenTop, aDataScreenBottom,
+    aCanvas, aPaintInfo);
                             }
                         }
                     }
@@ -1131,12 +1125,9 @@ namespace HC.View
             RECT drawRect, RECT clearRect, int dataDrawLeft, int dataDrawRight, int dataDrawBottom, int dataScreenTop,
             int dataScreenBottom, HCCanvas canvas, PaintInfo paintInfo)
         {
-            if (OwnerData.OnDrawItemPaintAfter != null)
-            {
-                OwnerData.OnDrawItemPaintAfter(data, itemNo, drawItemNo,
-                    drawRect, clearRect, dataDrawLeft, dataDrawRight, dataDrawBottom,
-                    dataScreenTop, dataScreenBottom, canvas, paintInfo);
-            }
+            OwnerData.OnDrawItemPaintAfter?.Invoke(data, itemNo, drawItemNo,
+    drawRect, clearRect, dataDrawLeft, dataDrawRight, dataDrawBottom,
+    dataScreenTop, dataScreenBottom, canvas, paintInfo);
         }
 
 
@@ -3166,12 +3157,12 @@ namespace HC.View
                 e.Handled = true; ;
         }
 
-        public override void KeyPress(ref Char key)
+        public override void KeyPress(ref char key)
         {
             HCTableCell vEditCell = GetEditCell();
             if (vEditCell != null)
             {
-                Char vOldKey = key;
+                char vOldKey = key;
 
                 HCProcedure vEvent = delegate()
                 {
@@ -4166,7 +4157,7 @@ namespace HC.View
             FBorderVisible = bool.Parse(aNode.Attributes["bordervisible"].Value);
 
             if (aNode.HasAttribute("borderwidthpt"))
-                BorderWidthPt = Single.Parse(aNode.Attributes["borderwidthpt"].Value);
+                BorderWidthPt = float.Parse(aNode.Attributes["borderwidthpt"].Value);
             else
             if (aNode.HasAttribute("borderwidth"))
             {
@@ -4175,10 +4166,10 @@ namespace HC.View
             }
 
             if (aNode.HasAttribute("cellvpadding"))
-                CellVPaddingMM = Single.Parse(aNode.Attributes["cellvpadding"].Value);
+                CellVPaddingMM = float.Parse(aNode.Attributes["cellvpadding"].Value);
 
             if (aNode.HasAttribute("cellhpadding"))
-                CellHPaddingMM = Single.Parse(aNode.Attributes["cellhpadding"].Value);
+                CellHPaddingMM = float.Parse(aNode.Attributes["cellhpadding"].Value);
 
             int vR = int.Parse(aNode.Attributes["row"].Value);
             int vC = int.Parse(aNode.Attributes["col"].Value);
@@ -4264,7 +4255,7 @@ namespace HC.View
             return Result;
         }
 
-        public void AdjustWidth(Boolean reformat)
+        public void AdjustWidth(bool reformat)
         {
             int vWidth = (OwnerData as HCRichData).Width - this.GetFormatWidth();
             if (vWidth != 0)
@@ -4517,8 +4508,7 @@ namespace HC.View
                 else  // 默认的绘制
                 {
                     vDrawDefault = true;
-                    if (FOnCellPaintBK != null)
-                        FOnCellPaintBK(this, FRows[aRow][vC], vCellRect, aCanvas, aPaintInfo, ref  vDrawDefault);
+                    FOnCellPaintBK?.Invoke(this, FRows[aRow][vC], vCellRect, aCanvas, aPaintInfo, ref vDrawDefault);
 
                     if (vDrawDefault)
                     {
@@ -5521,7 +5511,7 @@ namespace HC.View
             get { return FBorderWidthPix; }
         }
 
-        public Single BorderWidthPt
+        public float BorderWidthPt
         {
             get { return FBorderWidthPt; }
             set { SetBorderWidthPt(value); }
@@ -5537,13 +5527,13 @@ namespace HC.View
             get { return FCellVPaddingPix; }
         }
 
-        public Single CellVPaddingMM
+        public float CellVPaddingMM
         {
             get { return FCellVPaddingMM; }
             set { SetCellVPaddingMM(value); }
         }
 
-        public Single CellHPaddingMM
+        public float CellHPaddingMM
         {
             get { return FCellHPaddingMM; }
             set { SetCellHPaddingMM(value); }

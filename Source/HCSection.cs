@@ -184,14 +184,12 @@ namespace HC.View
         /// <summary> 当前Data需要UpdateInfo更新 </summary>
         protected void DoActiveDataCheckUpdateInfo()
         {
-            if (FOnCheckUpdateInfo != null)
-                FOnCheckUpdateInfo(this, null);
+            FOnCheckUpdateInfo?.Invoke(this, null);
         }
 
         private void DoDataReadOnlySwitch(object sender, EventArgs e)
         {
-            if (FOnReadOnlySwitch != null)
-                FOnReadOnlySwitch(this, null);
+            FOnReadOnlySwitch?.Invoke(this, null);
         }
 
         private POINT DoGetScreenCoordEvent(int x, int y)
@@ -206,56 +204,48 @@ namespace HC.View
             int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop, int aDataScreenBottom,
             HCCanvas ACanvas, PaintInfo APaintInfo)
         {
-            if (FOnDrawItemPaintBefor != null)
-                FOnDrawItemPaintBefor(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
-                    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, ACanvas, APaintInfo);
+            FOnDrawItemPaintBefor?.Invoke(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
+    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, ACanvas, APaintInfo);
         }
 
         private void DoDataDrawItemPaintContent(HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect, RECT aClearRect, string aDrawText,
             int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop, int aDataScreenBottom, HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
-            if (FOnDrawItemPaintContent != null)
-                FOnDrawItemPaintContent(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDrawText,
-                    aDataDrawLeft, aDataDrawRight, aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
+            FOnDrawItemPaintContent?.Invoke(aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDrawText,
+    aDataDrawLeft, aDataDrawRight, aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
         }
 
         private void DoDataDrawItemPaintAfter(HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect, RECT aClearRect,
             int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop, int aDataScreenBottom,
             HCCanvas ACanvas, PaintInfo APaintInfo)
         {
-            if (FOnDrawItemPaintAfter != null)
-                FOnDrawItemPaintAfter(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
-                    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, ACanvas, APaintInfo);
+            FOnDrawItemPaintAfter?.Invoke(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
+    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, ACanvas, APaintInfo);
         }
 
         private void DoDataInsertAnnotate(HCCustomData aData, HCAnnotateItem annotateItem)
         {
-            if (FOnInsertAnnotate != null)
-                FOnInsertAnnotate(this, aData, annotateItem);
+            FOnInsertAnnotate?.Invoke(this, aData, annotateItem);
         }
 
         private void DoDataRemoveAnnotate(HCCustomData aData, HCAnnotateItem annotateItem)
         {
-            if (FOnRemoveAnnotate != null)
-                FOnRemoveAnnotate(this, aData, annotateItem);
+            FOnRemoveAnnotate?.Invoke(this, aData, annotateItem);
         }
 
         private void DoDataDrawItemAnnotate(HCCustomData aData, int aDrawItemNo, RECT aDrawRect, HCAnnotateItem annotateItem)
         {
-            if (FOnDrawItemAnnotate != null)
-                FOnDrawItemAnnotate(this, aData, aDrawItemNo, aDrawRect, annotateItem);
+            FOnDrawItemAnnotate?.Invoke(this, aData, aDrawItemNo, aDrawRect, annotateItem);
         }
 
         private void DoDataInsertItem(HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnInsertItem != null)
-                FOnInsertItem(this, aData, aItem);
+            FOnInsertItem?.Invoke(this, aData, aItem);
         }
 
         private void DoDataRemoveItem(HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnRemoveItem != null)
-                FOnRemoveItem(this, aData, aItem);
+            FOnRemoveItem?.Invoke(this, aData, aItem);
         }
 
         private bool DoDataSaveItem(HCCustomData aData, int aItemNo)
@@ -284,32 +274,27 @@ namespace HC.View
 
         private void DoDataItemMouseDown(HCCustomData aData, int aItemNo, int aOffset, MouseEventArgs e)
         {
-            if (FOnItemMouseDown != null)
-                FOnItemMouseDown(this, aData, aItemNo, aOffset, e);
+            FOnItemMouseDown?.Invoke(this, aData, aItemNo, aOffset, e);
         }
 
         private void DoDataItemMouseUp(HCCustomData aData, int aItemNo, int aOffset, MouseEventArgs e)
         {
-            if (FOnItemMouseUp != null)
-                FOnItemMouseUp(this, aData, aItemNo, aOffset, e);
+            FOnItemMouseUp?.Invoke(this, aData, aItemNo, aOffset, e);
         }
 
         private void DoDataDrawItemMouseMove(HCCustomData data, int itemNo, int offset, int drawItemNo, MouseEventArgs e)
         {
-            if (FOnDrawItemMouseMove != null)
-                FOnDrawItemMouseMove(this, data, itemNo, offset, drawItemNo, e);
+            FOnDrawItemMouseMove?.Invoke(this, data, itemNo, offset, drawItemNo, e);
         }
 
         protected void DoDataChanged(object sender)
         {
-            if (FOnDataChange != null)
-                FOnDataChange(sender, null);
+            FOnDataChange?.Invoke(sender, null);
         }
 
         protected void DoDataSetChange(object sender, EventArgs e)
         {
-            if (FOnDataSetChange != null)
-                FOnDataSetChange(sender, e);
+            FOnDataSetChange?.Invoke(sender, e);
         }
 
         private void DoDataItemReFormatRequest(HCCustomData aSectionData, HCCustomItem aItem)
@@ -345,8 +330,7 @@ namespace HC.View
 
             vResizeItem.RestrainSize(vWidth, vHeight);
 
-            if (FOnItemResize != null)
-                FOnItemResize(aData, aItemNo);
+            FOnItemResize?.Invoke(aData, aItemNo);
         }
 
         private HCCustomItem DoDataCreateStyleItem(HCCustomData aData, int aStyleNo)
@@ -375,20 +359,17 @@ namespace HC.View
 
         private void DoDataCreateItem(object sender, EventArgs e)
         {
-            if (FOnCreateItem != null)
-                FOnCreateItem(sender, null);
+            FOnCreateItem?.Invoke(sender, null);
         }
 
         private void DoDataCurParaNoChange(object sender, EventArgs e)
         {
-            if (FOnCurParaNoChange != null)
-                FOnCurParaNoChange(sender, e);
+            FOnCurParaNoChange?.Invoke(sender, e);
         }
 
         private void DoDataCaretItemChanged(HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnCaretItemChanged != null)
-                FOnCaretItemChanged(this, aData, aItem);
+            FOnCaretItemChanged?.Invoke(this, aData, aItem);
         }
 
         private HCUndoList DoDataGetUndoList()
@@ -500,8 +481,7 @@ namespace HC.View
             if (FActivePageIndex != Value)
             {
                 FActivePageIndex = Value;
-                if (FOnActivePageChange != null)
-                    FOnActivePageChange(this, null);
+                FOnActivePageChange?.Invoke(this, null);
             }
         }
 
@@ -532,62 +512,62 @@ namespace HC.View
         }
 
         // 边距信息
-        protected Single GetPaperWidth()
+        protected float GetPaperWidth()
         {
             return FPaper.Width;
         }
 
-        protected Single GetPaperHeight()
+        protected float GetPaperHeight()
         {
             return FPaper.Height;
         }
 
-        protected Single GetPaperMarginTop()
+        protected float GetPaperMarginTop()
         {
             return FPaper.MarginTop;
         }
 
-        protected Single GetPaperMarginLeft()
+        protected float GetPaperMarginLeft()
         {
             return FPaper.MarginLeft;
         }
 
-        protected Single GetPaperMarginRight()
+        protected float GetPaperMarginRight()
         {
             return FPaper.MarginRight;
         }
 
-        protected Single GetPaperMarginBottom()
+        protected float GetPaperMarginBottom()
         {
             return FPaper.MarginBottom;
         }
 
-        protected void SetPaperWidth(Single value)
+        protected void SetPaperWidth(float value)
         {
             FPaper.Width = value;
         }
 
-        protected void SetPaperHeight(Single value)
+        protected void SetPaperHeight(float value)
         {
             FPaper.Height = value;
         }
 
-        protected void SetPaperMarginTop(Single value)
+        protected void SetPaperMarginTop(float value)
         {
             FPaper.MarginTop = value;
         }
 
-        protected void SetPaperMarginLeft(Single value)
+        protected void SetPaperMarginLeft(float value)
         {
             FPaper.MarginLeft = value;
         }
 
-        protected void SetPaperMarginRight(Single value)
+        protected void SetPaperMarginRight(float value)
         {
             FPaper.MarginRight = value;
         }
 
-        protected void SetPaperMarginBottom(Single value)
+        protected void SetPaperMarginBottom(float value)
         {
             FPaper.MarginBottom = value;
         }
@@ -1022,7 +1002,7 @@ namespace HC.View
 
             if (HC.IsKeyPressWant(e))
             {
-                Char vKey = e.KeyChar;
+                char vKey = e.KeyChar;
 
                 HCFunction vEvent = delegate()
                 {
@@ -1035,7 +1015,7 @@ namespace HC.View
                 e.KeyChar = vKey;
             }
             else
-                e.KeyChar = (Char)0;
+                e.KeyChar = (char)0;
         }
 
         public void KeyDown(KeyEventArgs e)
@@ -1117,7 +1097,7 @@ namespace HC.View
             DoSectionDataAction(FActiveData, vEvent);
         }
 
-        public void ApplyTextFontSize(Single aFontSize)
+        public void ApplyTextFontSize(float aFontSize)
         {
             HCFunction vEvent = delegate()
             {
@@ -1435,7 +1415,7 @@ namespace HC.View
             DoSectionDataAction(FActiveData, vEvent);
         }
 
-        public void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, Single aSpace)
+        public void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, float aSpace)
         {
             HCFunction vEvent = delegate()
             {
@@ -1446,7 +1426,7 @@ namespace HC.View
             DoSectionDataAction(FActiveData, vEvent);
         }
 
-        public void ApplyParaLeftIndent(Single indent)
+        public void ApplyParaLeftIndent(float indent)
         {
             HCFunction vEvent = delegate()
             {
@@ -1457,7 +1437,7 @@ namespace HC.View
             DoSectionDataAction(FActiveData, vEvent);
         }
 
-        public void ApplyParaRightIndent(Single indent)
+        public void ApplyParaRightIndent(float indent)
         {
             HCFunction vEvent = delegate()
             {
@@ -1468,7 +1448,7 @@ namespace HC.View
             DoSectionDataAction(FActiveData, vEvent);
         }
 
-        public void ApplyParaFirstIndent(Single indent)
+        public void ApplyParaFirstIndent(float indent)
         {
             HCFunction vEvent = delegate()
             {
@@ -2141,8 +2121,7 @@ namespace HC.View
 
             if (vOldTopData != FActiveData.GetTopLevelData())
             {
-                if (FOnChangeTopLevelData != null)
-                    FOnChangeTopLevelData(this, null);
+                FOnChangeTopLevelData?.Invoke(this, null);
             }
         }
 
@@ -2995,37 +2974,37 @@ namespace HC.View
             set { SetPaperSize(value); }
         }
 
-        public Single PaperWidth
+        public float PaperWidth
         {
             get { return GetPaperWidth(); }
             set { SetPaperWidth(value); }
         }
 
-        public Single PaperHeight
+        public float PaperHeight
         {
             get { return GetPaperHeight(); }
             set { SetPaperHeight(value); }
         }
 
-        public Single PaperMarginTop
+        public float PaperMarginTop
         {
             get { return GetPaperMarginTop(); }
             set { SetPaperMarginTop(value); }
         }
 
-        public Single PaperMarginLeft
+        public float PaperMarginLeft
         {
             get { return GetPaperMarginLeft(); }
             set { SetPaperMarginLeft(value); }
         }
 
-        public Single PaperMarginRight
+        public float PaperMarginRight
         {
             get { return GetPaperMarginRight(); }
             set { SetPaperMarginRight(value); }
         }
 
-        public Single PaperMarginBottom
+        public float PaperMarginBottom
         {
             get { return GetPaperMarginBottom(); }
             set { SetPaperMarginBottom(value); }
@@ -3497,7 +3476,7 @@ namespace HC.View
 
         public void SeekStreamToArea(Stream stream, HCStyle style, ushort fileVersion, SectionArea part, bool usePaper)
         {
-            Int64 vDataSize = 0;
+            long vDataSize = 0;
             bool vArea = false;
             HashSet<SectionArea> vLoadParts = new HashSet<SectionArea>();
             string vS = "";
@@ -3648,14 +3627,14 @@ namespace HC.View
             // GetXmlPaper_
             string[] vStrings = aNode.Attributes["pagesize"].Value.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             this.PaperSize = (PaperKind)(int.Parse(vStrings[0]));
-            this.PaperWidth = Single.Parse(vStrings[1]);
-            this.PaperHeight = Single.Parse(vStrings[2]);
+            this.PaperWidth = float.Parse(vStrings[1]);
+            this.PaperHeight = float.Parse(vStrings[2]);
             // GetXmlPaperMargin_
             vStrings = aNode.Attributes["margin"].Value.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            this.PaperMarginLeft = Single.Parse(vStrings[0]);
-            this.PaperMarginTop = Single.Parse(vStrings[1]);
-            this.PaperMarginRight = Single.Parse(vStrings[2]);
-            this.PaperMarginBottom = Single.Parse(vStrings[3]);
+            this.PaperMarginLeft = float.Parse(vStrings[0]);
+            this.PaperMarginTop = float.Parse(vStrings[1]);
+            this.PaperMarginRight = float.Parse(vStrings[2]);
+            this.PaperMarginBottom = float.Parse(vStrings[3]);
 
             if (aNode.HasAttribute("property"))
             {

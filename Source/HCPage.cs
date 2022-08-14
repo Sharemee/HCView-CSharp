@@ -21,9 +21,9 @@ namespace HC.View
     public class HCPaper : HCObject
     {
         private PaperKind FSize;  // 纸张大小如A4、B5等
-        private Single FWidth, FHeight;  // 纸张宽、高（单位mm）
+        private float FWidth, FHeight;  // 纸张宽、高（单位mm）
         private int FWidthPix, FHeightPix;  // 页面大小
-        private Single FMarginTop, FMarginLeft, FMarginRight, FMarginBottom;  // 纸张边距（单位mm）
+        private float FMarginTop, FMarginLeft, FMarginRight, FMarginBottom;  // 纸张边距（单位mm）
         private int FMarginTopPix, FMarginLeftPix, FMarginRightPix, FMarginBottomPix;  // 页边距
 
         protected void SetSize(PaperKind value)
@@ -32,37 +32,37 @@ namespace HC.View
                 FSize = value;
         }
 
-        protected void SetWidth(Single value)
+        protected void SetWidth(float value)
         {
             FWidth = value;
             FWidthPix = HCUnitConversion.MillimeterToPixX(FWidth);
         }
 
-        protected void SetHeight(Single value)
+        protected void SetHeight(float value)
         {
             FHeight = value;
             FHeightPix = HCUnitConversion.MillimeterToPixY(FHeight);
         }
 
-        protected void SetMarginTop(Single value)
+        protected void SetMarginTop(float value)
         {
             FMarginTop = value;
             FMarginTopPix = HCUnitConversion.MillimeterToPixY(FMarginTop);
         }
 
-        protected void SetMarginLeft(Single value)
+        protected void SetMarginLeft(float value)
         {
             FMarginLeft = value;
             FMarginLeftPix = HCUnitConversion.MillimeterToPixX(FMarginLeft);
         }
 
-        protected void SetMarginRight(Single value)
+        protected void SetMarginRight(float value)
         {
             FMarginRight = value;
             FMarginRightPix = HCUnitConversion.MillimeterToPixX(FMarginRight);
         }
 
-        protected void SetMarginBottom(Single value)
+        protected void SetMarginBottom(float value)
         {
             FMarginBottom = value;
             FMarginBottomPix = HCUnitConversion.MillimeterToPixY(FMarginBottom);
@@ -81,7 +81,7 @@ namespace HC.View
 
         public void SaveToStream(Stream aStream)
         {
-            Int64 vBegPos, vEndPos;
+            long vBegPos, vEndPos;
             vBegPos = aStream.Position;
 
             byte[] vBuffer = System.BitConverter.GetBytes(vBegPos);
@@ -119,7 +119,7 @@ namespace HC.View
 
         public void LoadToStream(Stream aStream, ushort aFileVersion)
         {
-            Int64 vDataSize = 0;
+            long vDataSize = 0;
             byte[] vBuffer = BitConverter.GetBytes(vDataSize);
 
             aStream.Read(vBuffer, 0, vBuffer.Length);
@@ -160,37 +160,37 @@ namespace HC.View
             set { SetSize(value); }
         }
 
-        public Single Width
+        public float Width
         {
             get { return FWidth; }
             set { SetWidth(value); }
         }
 
-        public Single Height
+        public float Height
         {
             get { return FHeight; }
             set { SetHeight(value); }
         }
 
-        public Single MarginTop
+        public float MarginTop
         {
             get { return FMarginTop; }
             set { SetMarginTop(value); }
         }
 
-        public Single MarginLeft
+        public float MarginLeft
         {
             get { return FMarginLeft; }
             set { SetMarginLeft(value); }
         }
         
-        public Single MarginRight
+        public float MarginRight
         {
             get { return FMarginRight; }
             set { SetMarginRight(value); }
         }
 
-        public Single MarginBottom
+        public float MarginBottom
         {
             get { return FMarginBottom; }
             set { SetMarginBottom(value); }

@@ -702,7 +702,7 @@ namespace HC.Win32
 		[DllImport("advapi32")] public static extern int LogonUser(string lpszUsername, string lpszDomain, string lpszPassword, int dwLogonType, int dwLogonProvider, ref int phToken);
 		[DllImport("advapi32")] public static extern int NotifyChangeEventLog(HANDLE hEventLog, HANDLE hEvent);
 		[DllImport("advapi32")] public static extern int SetThreadToken(int Thread, int Token);
-		[DllImport("advapi32")] public static extern Byte GetSidSubAuthorityCount(IntPtr pSid);
+		[DllImport("advapi32")] public static extern byte GetSidSubAuthorityCount(IntPtr pSid);
 		[DllImport("advapi32")] public static extern SID_IDENTIFIER_AUTHORITY GetSidIdentifierAuthority(IntPtr pSid);
 		[DllImport("advapi32")] public static extern int AbortSystemShutdown(string lpMachineName);
 		[DllImport("advapi32")] public static extern int AccessCheck(ref SECURITY_DESCRIPTOR pSecurityDescriptor, int ClientToken, int DesiredAccess, GENERIC_MAPPING GenericMapping, PRIVILEGE_SET PrivilegeSet, int PrivilegeSetLength, int GrantedAccess, int Status);
@@ -713,7 +713,7 @@ namespace HC.Win32
 		[DllImport("advapi32")] public static extern int AddAuditAccessAce(ref ACL pAcl, int dwAceRevision, int dwAccessMask, IntPtr pSid, int bAuditSuccess, int bAuditFailure);
 		[DllImport("advapi32")] public static extern int AdjustTokenGroups(int TokenHandle, int ResetToDefault, TOKEN_GROUPS NewState, int BufferLength, TOKEN_GROUPS PreviousState, int ReturnLength);
 		[DllImport("advapi32")] public static extern int AdjustTokenPrivileges(int TokenHandle, int DisableAllPrivileges, TOKEN_PRIVILEGES NewState, int BufferLength, TOKEN_PRIVILEGES PreviousState, int ReturnLength);
-		[DllImport("advapi32")] public static extern int AllocateAndInitializeSid(ref SID_IDENTIFIER_AUTHORITY pIdentifierAuthority, Byte nSubAuthorityCount, int nSubAuthority0, int nSubAuthority1, int nSubAuthority2, int nSubAuthority3, int nSubAuthority4, int nSubAuthority5, int nSubAuthority6, int nSubAuthority7, ref int lpPSid);
+		[DllImport("advapi32")] public static extern int AllocateAndInitializeSid(ref SID_IDENTIFIER_AUTHORITY pIdentifierAuthority, byte nSubAuthorityCount, int nSubAuthority0, int nSubAuthority1, int nSubAuthority2, int nSubAuthority3, int nSubAuthority4, int nSubAuthority5, int nSubAuthority6, int nSubAuthority7, ref int lpPSid);
 		[DllImport("advapi32")] public static extern int AllocateLocallyUniqueId(LARGE_INTEGER Luid);
 		[DllImport("advapi32")] public static extern int AreAllAccessesGranted(int GrantedAccess, int DesiredAccess);
 		[DllImport("advapi32")] public static extern int AreAnyAccessesGranted(int GrantedAccess, int DesiredAccess);
@@ -753,7 +753,7 @@ namespace HC.Win32
 		[DllImport("advapi32")] public static extern int GetSecurityDescriptorSacl(ref SECURITY_DESCRIPTOR pSecurityDescriptor, ref int lpbSaclPresent, ref ACL pSacl, ref int lpbSaclDefaulted);
 		[DllImport("advapi32")] public static extern int GetServiceDisplayName(HANDLE hSCManager, string lpServiceName, StringBuilder lpDisplayName, ref int cchBuffer);
 		[DllImport("advapi32")] public static extern int GetServiceKeyName(HANDLE hSCManager, string lpDisplayName, StringBuilder lpServiceName, ref int cchBuffer);
-		[DllImport("advapi32")] public static extern int GetSidLengthRequired(Byte nSubAuthorityCount);
+		[DllImport("advapi32")] public static extern int GetSidLengthRequired(byte nSubAuthorityCount);
 		[DllImport("advapi32")] public static extern int GetSidSubAuthority(IntPtr pSid, int nSubAuthority);
 		[DllImport("advapi32")] public static extern int GetTokenInformation(int TokenHandle, short TokenInformationClass, IntPtr TokenInformation, int TokenInformationLength, int ReturnLength);
 		[DllImport("advapi32")] public static extern int GetUserName(StringBuilder lpBuffer, int nSize);
@@ -761,7 +761,7 @@ namespace HC.Win32
 		[DllImport("advapi32")] public static extern int ImpersonateSelf(short ImpersonationLevel);
 		[DllImport("advapi32")] public static extern int InitializeAcl(ref ACL pAcl, int nAclLength, int dwAclRevision);
 		[DllImport("advapi32")] public static extern int InitializeSecurityDescriptor(ref SECURITY_DESCRIPTOR pSecurityDescriptor, int dwRevision);
-		[DllImport("advapi32")] public static extern int InitializeSid(IntPtr Sid, ref SID_IDENTIFIER_AUTHORITY pIdentifierAuthority, Byte nSubAuthorityCount);
+		[DllImport("advapi32")] public static extern int InitializeSid(IntPtr Sid, ref SID_IDENTIFIER_AUTHORITY pIdentifierAuthority, byte nSubAuthorityCount);
 		[DllImport("advapi32")] public static extern int InitiateSystemShutdown(string lpMachineName, string lpMessage, int dwTimeout, int bForceAppsClosed, int bRebootAfterShutdown);
 		[DllImport("advapi32")] public static extern int IsValidAcl(ref ACL pAcl);
 		[DllImport("advapi32")] public static extern int IsValidSecurityDescriptor(ref SECURITY_DESCRIPTOR pSecurityDescriptor);
@@ -797,7 +797,7 @@ namespace HC.Win32
 		[DllImport("advapi32")] public static extern int RegDeleteValue(HANDLE hKey, string lpValueName);
 		[DllImport("advapi32")] public static extern int RegEnumKey(HANDLE hKey, int dwIndex, string lpName, int cbName);
 		[DllImport("advapi32")] public static extern int RegEnumKeyEx(HANDLE hKey, int dwIndex, string lpName, ref int lpcbName, ref int lpReserved, string lpClass, ref int lpcbClass, ref FILETIME lpftLastWriteTime);
-		[DllImport("advapi32")] public static extern int RegEnumValue(HANDLE hKey, int dwIndex, string lpValueName, ref int lpcbValueName, ref int lpReserved, ref int lpType, Byte lpData, ref int lpcbData);
+		[DllImport("advapi32")] public static extern int RegEnumValue(HANDLE hKey, int dwIndex, string lpValueName, ref int lpcbValueName, ref int lpReserved, ref int lpType, byte lpData, ref int lpcbData);
 		[DllImport("advapi32")] public static extern int RegFlushKey(HANDLE hKey);
 		[DllImport("advapi32")] public static extern int RegGetKeySecurity(HANDLE hKey, int SecurityInformation, ref SECURITY_DESCRIPTOR pSecurityDescriptor, ref int lpcbSecurityDescriptor);
 		[DllImport("advapi32")] public static extern int RegLoadKey(HANDLE hKey, string lpSubKey, string lpFile);
@@ -834,7 +834,7 @@ namespace HC.Win32
 		[DllImport("advapi32")] public static extern int UnlockServiceDatabase(IntPtr ScLock);
 		[DllImport("advapi32")] public static extern void FreeSid(IntPtr pSid);
 		[DllImport("advapi32")] public static extern void MapGenericMask(int AccessMask, GENERIC_MAPPING GenericMapping);
-		[DllImport("advapi32")] public static extern int GetUserNameW(Byte lpBuffer, int nSize);
+		[DllImport("advapi32")] public static extern int GetUserNameW(byte lpBuffer, int nSize);
 		[DllImport("advapi32")] public static extern int OpenProcessToken(int ProcessHandle, int DesiredAccess, int TokenHandle);
 	}
 
@@ -860,9 +860,9 @@ namespace HC.Win32
 		[DllImport("KERNEL32")] public static extern void ZeroMemory(IntPtr dest, int numBytes);
 		[DllImport("kernel32")] public static extern COORD GetLargestConsoleWindowSize(HANDLE hConsoleOutput);
 		[DllImport("kernel32")] public static extern int AllocConsole();
-		[DllImport("kernel32")] public static extern int BackupRead(HANDLE hFile, Byte lpBuffer, int nNumberOfBytesToRead, ref int lpNumberOfBytesRead, int bAbort, int bProcessSecurity, IntPtr lpContext);
+		[DllImport("kernel32")] public static extern int BackupRead(HANDLE hFile, byte lpBuffer, int nNumberOfBytesToRead, ref int lpNumberOfBytesRead, int bAbort, int bProcessSecurity, IntPtr lpContext);
 		[DllImport("kernel32")] public static extern int BackupSeek(HANDLE hFile, int dwLowBytesToSeek, int dwHighBytesToSeek, ref int lpdwLowByteSeeked, ref int lpdwHighByteSeeked, ref int lpContext);
-		[DllImport("kernel32")] public static extern int BackupWrite(HANDLE hFile, Byte lpBuffer, int nNumberOfBytesToWrite, ref int lpNumberOfBytesWritten, int bAbort, int bProcessSecurity, ref int lpContext);
+		[DllImport("kernel32")] public static extern int BackupWrite(HANDLE hFile, byte lpBuffer, int nNumberOfBytesToWrite, ref int lpNumberOfBytesWritten, int bAbort, int bProcessSecurity, ref int lpContext);
 		[DllImport("kernel32")] public static extern int Beep(int dwFreq, int dwDuration);
 		[DllImport("kernel32")] public static extern int BeginUpdateResource(string pFileName, int bDeleteExistingResources);
 		[DllImport("kernel32")] public static extern int BuildCommDCB(string lpDef, ref DCB lpDCB);
@@ -913,7 +913,7 @@ namespace HC.Win32
 		[DllImport("kernel32")] public static extern int FileTimeToLocalFileTime(ref FILETIME lpFileTime, ref FILETIME lpLocalFileTime);
 		[DllImport("kernel32")] public static extern int FileTimeToSystemTime(ref FILETIME lpFileTime, ref SYSTEMTIME lpSystemTime);
 		[DllImport("kernel32")] public static extern int FillConsoleOutputAttribute(HANDLE hConsoleOutput, int wAttribute, int nLength, COORD dwWriteCoord, ref int lpNumberOfAttrsWritten);
-		[DllImport("kernel32")] public static extern int FillConsoleOutputCharacter(HANDLE hConsoleOutput, Byte cCharacter, int nLength, COORD dwWriteCoord, ref int lpNumberOfCharsWritten);
+		[DllImport("kernel32")] public static extern int FillConsoleOutputCharacter(HANDLE hConsoleOutput, byte cCharacter, int nLength, COORD dwWriteCoord, ref int lpNumberOfCharsWritten);
 		[DllImport("kernel32")] public static extern int FindClose(HANDLE hFindFile);
 		[DllImport("kernel32")] public static extern int FindCloseChangeNotification(HANDLE hChangeHandle);
 		[DllImport("kernel32")] public static extern int FindFirstChangeNotification(string lpPathName, int bWatchSubtree, int dwNotifyFilter);
@@ -1059,7 +1059,7 @@ namespace HC.Win32
 		[DllImport("kernel32")] public static extern int IsBadReadPtr(IntPtr lp, int ucb);
 		[DllImport("kernel32")] public static extern int IsBadStringPtr(string lpsz, int ucchMax);
 		[DllImport("kernel32")] public static extern int IsBadWritePtr(IntPtr lp, int ucb);
-		[DllImport("kernel32")] public static extern int IsDBCSLeadByte(Byte bTestChar);
+		[DllImport("kernel32")] public static extern int IsDBCSLeadByte(byte bTestChar);
 		[DllImport("kernel32")] public static extern int IsValidCodePage(int CodePage);
 		[DllImport("kernel32")] public static extern int LCMapString(int Locale, int dwMapFlags, string lpSrcStr, int cchSrc, string lpDestStr, int cchDest);
 		[DllImport("kernel32")] public static extern int LoadLibrary(string lpLibFileName);
@@ -1173,7 +1173,7 @@ namespace HC.Win32
 		[DllImport("kernel32")] public static extern int TlsGetValue(int dwTlsIndex);
 		[DllImport("kernel32")] public static extern int TlsSetValue(int dwTlsIndex, IntPtr lpTlsValue);
 		[DllImport("kernel32")] public static extern int TransactNamedPipe(HANDLE hNamedPipe, IntPtr lpInBuffer, int nInBufferSize, IntPtr lpOutBuffer, int nOutBufferSize, ref int lpBytesRead, ref OVERLAPPED lpOverlapped);
-		[DllImport("kernel32")] public static extern int TransmitCommChar(int nCid, Byte cChar);
+		[DllImport("kernel32")] public static extern int TransmitCommChar(int nCid, byte cChar);
 		[DllImport("kernel32")] public static extern int UnhandledExceptionFilter(ref EXCEPTION_POINTERS ExceptionInfo);
 		[DllImport("kernel32")] public static extern int UnlockFile(HANDLE hFile, int dwFileOffsetLow, int dwFileOffsetHigh, int nNumberOfBytesToUnlockLow, int nNumberOfBytesToUnlockHigh);
 		[DllImport("kernel32")] public static extern int UnlockFileEx(HANDLE hFile, int dwReserved, int nNumberOfBytesToUnlockLow, int nNumberOfBytesToUnlockHigh, ref OVERLAPPED lpOverlapped);

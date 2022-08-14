@@ -58,8 +58,7 @@ namespace HC.View
             {
                 base.SetReadOnly(value);
 
-                if (FOnReadOnlySwitch != null)
-                    FOnReadOnlySwitch(this, null);
+                FOnReadOnlySwitch?.Invoke(this, null);
             }
         }
 
@@ -67,7 +66,7 @@ namespace HC.View
         {
             if (aFileVersion > 42)
             {
-                Int64 vDataSize = 0;
+                long vDataSize = 0;
                 byte[] vBuffer = BitConverter.GetBytes(vDataSize);
                 aStream.Read(vBuffer, 0, vBuffer.Length);
                 vDataSize = BitConverter.ToInt64(vBuffer, 0);
@@ -372,7 +371,7 @@ namespace HC.View
 
         public override void SaveToStream(Stream aStream)
         {
-            Int64 vBegPos = aStream.Position;
+            long vBegPos = aStream.Position;
             byte[] vBuffer = System.BitConverter.GetBytes(vBegPos);
             aStream.Write(vBuffer, 0, vBuffer.Length);  // 数据大小占位，便于越过
 
@@ -383,7 +382,7 @@ namespace HC.View
             for (int i = 0; i <= FFloatItems.Count - 1; i++)
                 FFloatItems[i].SaveToStreamRange(aStream, 0, HC.OffsetAfter);
 
-            Int64 vEndPos = aStream.Position;
+            long vEndPos = aStream.Position;
             aStream.Position = vBegPos;
             vBegPos = vEndPos - vBegPos - Marshal.SizeOf(vBegPos);
             vBuffer = System.BitConverter.GetBytes(vBegPos);

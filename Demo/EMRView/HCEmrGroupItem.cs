@@ -19,7 +19,7 @@ using System.Drawing;
 
 namespace EMRView
 {
-    public static class GroupProp : Object
+    public static class GroupProp : object
     {
         /// <summary> 数据组唯一索引 </summary>
         public const string Index = "Index";
@@ -31,7 +31,7 @@ namespace EMRView
         public const string Propertys = "Propertys";
     }
 
-    public static class SubType : Object
+    public static class SubType : object
     {
         /// <summary> 病程 </summary>
         public const string Proc = "P";

@@ -418,7 +418,7 @@ namespace HC.View
             base.KeyDown(e);
         }
 
-        public override void KeyPress(ref Char key)
+        public override void KeyPress(ref char key)
         {
             if (this.Enabled && !FReadOnly)
             {

@@ -19,7 +19,7 @@ namespace HC.View
 {
     public delegate void OnTextStyle(int aCurStyleNo, HCTextStyle aWillStyle);
 
-    public abstract class HCStyleMatch : Object  // 文本样式匹配类
+    public abstract class HCStyleMatch : object  // 文本样式匹配类
     {
         private bool FAppend = false;
         private bool FLock;
@@ -50,8 +50,7 @@ namespace HC.View
             {
                 vTextStyle.AssignEx(aStyle.TextStyles[aCurStyleNo]);
                 DoMatchNew(vTextStyle);
-                if (FOnTextStyle != null)
-                    FOnTextStyle(aCurStyleNo, vTextStyle);
+                FOnTextStyle?.Invoke(aCurStyleNo, vTextStyle);
 
                 return aStyle.GetStyleNo(vTextStyle, true);
             }
@@ -135,7 +134,7 @@ namespace HC.View
 
     public class FontSizeStyleMatch : HCStyleMatch
     {
-        private Single FFontSize;
+        private float FFontSize;
 
         protected override bool DoMatchCur(HCTextStyle aTextStyle)
         {
@@ -147,7 +146,7 @@ namespace HC.View
             aTextStyle.Size = FFontSize;
         }
 
-        public Single FontSize
+        public float FontSize
         {
             get { return FFontSize; }
             set { FFontSize = value; }
@@ -196,7 +195,7 @@ namespace HC.View
         }
     }
 
-    public abstract class HCParaMatch : Object  // 段样式匹配类
+    public abstract class HCParaMatch : object  // 段样式匹配类
     {
         protected abstract bool DoMatchCurPara(HCParaStyle aParaStyle);
         protected abstract void DoMatchNewPara(HCParaStyle aParaStyle);
@@ -260,7 +259,7 @@ namespace HC.View
     public class ParaLineSpaceMatch : HCParaMatch
     {
         private ParaLineSpaceMode FSpaceMode;
-        private Single FSpace;
+        private float FSpace;
 
         protected override bool DoMatchCurPara(HCParaStyle aParaStyle)
         {
@@ -291,7 +290,7 @@ namespace HC.View
             set { FSpaceMode = value; }
         }
 
-        public Single Space
+        public float Space
         {
             get { return FSpace; }
             set { FSpace = value; }
@@ -342,7 +341,7 @@ namespace HC.View
 
     public class ParaFirstIndentMatch : HCParaMatch  // 段首行缩进匹配类
     {
-        private Single FIndent;
+        private float FIndent;
 
         protected override bool DoMatchCurPara(HCParaStyle aParaStyle)
         {
@@ -354,7 +353,7 @@ namespace HC.View
             aParaStyle.FirstIndent = FIndent;
         }
 
-        public Single Indent
+        public float Indent
         {
             get { return FIndent; }
             set { FIndent = value; }
@@ -363,7 +362,7 @@ namespace HC.View
 
     public class ParaLeftIndentMatch : HCParaMatch  // 段左缩进匹配类
     {
-        private Single FIndent;
+        private float FIndent;
 
         protected override bool DoMatchCurPara(HCParaStyle aParaStyle)
         {
@@ -375,7 +374,7 @@ namespace HC.View
             aParaStyle.LeftIndent = FIndent;
         }
 
-        public Single Indent
+        public float Indent
         {
             get { return FIndent; }
             set { FIndent = value; }
@@ -384,7 +383,7 @@ namespace HC.View
 
     public class ParaRightIndentMatch : HCParaMatch  // 段右缩进匹配类
     {
-        private Single FIndent;
+        private float FIndent;
 
         protected override bool DoMatchCurPara(HCParaStyle aParaStyle)
         {
@@ -396,7 +395,7 @@ namespace HC.View
             aParaStyle.RightIndent = FIndent;
         }
 
-        public Single Indent
+        public float Indent
         {
             get { return FIndent; }
             set { FIndent = value; }

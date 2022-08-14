@@ -43,6 +43,14 @@ namespace HCViewDemo
             this.ResumeLayout(true);
         }
 
+        /// <summary>
+        /// 窗口第一次显示时动作
+        /// </summary>
+        /// <remarks>解决窗体显示后，HCView没有显示重绘结果的问题</remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormMain_Shown(object sender, EventArgs e) => HCView.UpdateView();
+
         private void GetPagesAndActive()
         {
             tssPage.Text = "预览" + (HCView.PagePreviewFirst + 1).ToString()
@@ -252,10 +260,6 @@ namespace HCViewDemo
             HCView.DeleteActiveSection();
         }
 
-        private void FormMain_Shown(object sender, EventArgs e)
-        {
-            HCView.UpdateView();  // 解决窗体显示后，HCView没有显示重绘结果的问题
-        }
 
         private void 图片ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -709,7 +713,7 @@ namespace HCViewDemo
 
         private void cbbZoom_DropDownClosed(object sender, EventArgs e)
         {
-            Single vOut = 0;
+            float vOut = 0;
             if (float.TryParse(cbbZoom.Text, out vOut))
                 HCView.Zoom = vOut / 100;
             else

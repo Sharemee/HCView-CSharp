@@ -132,14 +132,12 @@ namespace HC.View
                 POINT vPt = new POINT(e.X, e.Y);
                 if (HC.PtInRect(HC.Bounds(2, Height - FRightBlank + 2, 16, 16), vPt))
                 {
-                    if (FOnPageUpClick != null)
-                        FOnPageUpClick(this, null);
+                    FOnPageUpClick?.Invoke(this, null);
                 }
                 else
                 if (HC.PtInRect(HC.Bounds(2, Height - FRightBlank + 2 + 16 + 2, 16, 16), vPt))
                 {
-                    if (FOnPageDownClick != null)
-                        FOnPageDownClick(this, null);
+                    FOnPageDownClick?.Invoke(this, null);
                 }
             }
         }

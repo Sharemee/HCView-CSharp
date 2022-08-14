@@ -88,8 +88,7 @@ namespace HC.View
 
         protected void DoSetFormatHeightChange()
         {
-            if (FOnSetFormatHeightChange != null)
-                FOnSetFormatHeightChange(this, null);
+            FOnSetFormatHeightChange?.Invoke(this, null);
         }
 
         /// <summary> 取消选中 </summary>

@@ -351,7 +351,7 @@ namespace HC.View
             e.Handled = true;
         }
 
-        public virtual void KeyPress(ref Char key)
+        public virtual void KeyPress(ref char key)
         {
             key = (char)0;
         }
@@ -978,8 +978,7 @@ namespace HC.View
         public override void KeyDown(KeyEventArgs e)
         {
             //base.KeyDown(e);
-            if (FOnKeyDown != null)
-                FOnKeyDown(this, e);
+            FOnKeyDown?.Invoke(this, e);
         }
 
         public override void SaveToStreamRange(Stream aStream, int aStart, int  aEnd)
@@ -1322,7 +1321,7 @@ namespace HC.View
             if (Active && AllowResize)
             {
                 int vW = 0, vH = 0, vTempW = 0, vTempH = 0;
-                Single vBL = 0;
+                float vBL = 0;
                 if (FResizing)
                 {
                     vBL = (float)Width / Height;

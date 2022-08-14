@@ -39,10 +39,10 @@ namespace EMRView
             DeTable vTable = vData.GetActiveItem() as DeTable;
 
             // 表格
-            tbxCellHPadding.Text = String.Format("{0:0.##}", vTable.CellHPaddingMM);
-            tbxCellVPadding.Text = String.Format("{0:0.##}", vTable.CellVPaddingMM);
+            tbxCellHPadding.Text = string.Format("{0:0.##}", vTable.CellHPaddingMM);
+            tbxCellVPadding.Text = string.Format("{0:0.##}", vTable.CellVPaddingMM);
             cbxBorderVisible.Checked = vTable.BorderVisible;
-            tbxBorderWidth.Text = String.Format("{0:0.##}", vTable.BorderWidthPt);
+            tbxBorderWidth.Text = string.Format("{0:0.##}", vTable.BorderWidthPt);
 
             tbxFixRowFirst.Text = (vTable.FixRow).ToString();
             if (vTable.FixRowCount > 0)
@@ -113,8 +113,8 @@ namespace EMRView
                 try
                 {
                     // 表格
-                    vTable.CellHPaddingMM = Single.Parse(tbxCellHPadding.Text);
-                    vTable.CellVPaddingMM = Single.Parse(tbxCellVPadding.Text);
+                    vTable.CellHPaddingMM = float.Parse(tbxCellHPadding.Text);
+                    vTable.CellVPaddingMM = float.Parse(tbxCellVPadding.Text);
                     vTable.BorderWidthPt = float.Parse(tbxBorderWidth.Text);
                     vTable.BorderVisible = cbxBorderVisible.Checked;
 

@@ -37,8 +37,7 @@ namespace EMRView
 
         private void SetDeItemValue(string value, ref bool aCancel)
         {
-            if (FOnSetActiveItemText != null)
-                FOnSetActiveItemText(FDeItem, value, ref aCancel);
+            FOnSetActiveItemText?.Invoke(FDeItem, value, ref aCancel);
         }
 
         private void SetDeItemExtraValue(string aCVVID)

@@ -71,7 +71,7 @@ namespace HC.View
                 return new RECT(0, 0, FPopupForm.Width, FPopupForm.Height);
         }
 
-        private void DoScroll(Object Sender, ScrollCode ScrollCode, int ScrollPos)
+        private void DoScroll(object Sender, ScrollCode ScrollCode, int ScrollPos)
         {
             FPopupForm.UpdatePopup();
         }
@@ -92,7 +92,7 @@ namespace HC.View
             return Result;
         }
 
-        private void DoItemsChange(Object Sender, EventArgs e)
+        private void DoItemsChange(object Sender, EventArgs e)
         {
             if (FItems.Count < DROPDOWNCOUNT)
                 FPopupForm.Height = DROPDOWNITEMHEIGHT * FItems.Count;
@@ -172,7 +172,7 @@ namespace HC.View
             }
         }
 
-        private void DoPopupFormClose(Object Sender, EventArgs e)
+        private void DoPopupFormClose(object Sender, EventArgs e)
         {
             FMoveItemIndex = -1;
             OwnerData.Style.UpdateInfoRePaint();
@@ -237,8 +237,7 @@ namespace HC.View
 
         protected virtual void DoPopup()
         {
-            if (FOnPopupItem != null)
-                FOnPopupItem(this, null);
+            FOnPopupItem?.Invoke(this, null);
 
             POINT vPt = OwnerData.GetScreenCoord(FButtonDrawRect.Left - (this.Width - FButtonDrawRect.Width),
                 FButtonDrawRect.Bottom + 1);
@@ -297,8 +296,7 @@ namespace HC.View
             if (!FStatic && (e.KeyCode != Keys.Back && e.KeyCode != Keys.Delete))
                 base.KeyDown(e);
             else
-            if (OnKeyDown != null)
-                OnKeyDown(this, e);
+                OnKeyDown?.Invoke(this, e);
         }
 
         public override void KeyPress(ref char key)

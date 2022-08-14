@@ -143,7 +143,7 @@ namespace HC.View
 		public const ushort
             HC_FileVersionInt = 61;
 
-        public const Byte
+        public const byte
             // 文件流的数据类型
             HC_STREAM_VIEW = 0,
             HC_STREAM_LITE = 1,
@@ -289,7 +289,7 @@ namespace HC.View
                 aPen.Width, ref vPenParams, 0, IntPtr.Zero));
         }
 
-        public static int PosCharHC(Char aChar, string aStr)
+        public static int PosCharHC(char aChar, string aStr)
         {
             int Result = 0;
             for (int i = 1; i <= aStr.Length; i++)
@@ -438,7 +438,7 @@ namespace HC.View
             return Result;
         }
 
-        public static Single GetFontSize(string aFontSize)
+        public static float GetFontSize(string aFontSize)
         {
             if (aFontSize == "初号")
                 return 42;
@@ -497,7 +497,7 @@ namespace HC.View
             }
         }
 
-        public static string GetFontSizeStr(Single aFontSize)
+        public static string GetFontSizeStr(float aFontSize)
         {
             string Result = "";
 
@@ -773,7 +773,7 @@ namespace HC.View
 
         public static string GetXmlRN(string aText)
         {
-            return aText.Replace(((Char)10).ToString(), "\r\n");
+            return aText.Replace(((char)10).ToString(), "\r\n");
         }
 
         public static void SetBorderSideByPro(string aValue, HCBorderSides aBorderSides)
@@ -1205,7 +1205,7 @@ namespace HC.View
             set { SetHeight(value); }
         }
 
-        public Byte Width
+        public byte Width
         {
             get { return FWidth; }
             set { SetWidth(value); }
@@ -1324,7 +1324,7 @@ namespace HC.View
 
         public new void Remove(T item)
         {
-            Int32 index = base.IndexOf(item);
+            int index = base.IndexOf(item);
             base.Remove(item);
             if (OnDelete != null)
                 OnDelete.Invoke(this, new NListEventArgs<T>(item, index));
@@ -1332,7 +1332,7 @@ namespace HC.View
             if (OnChange != null)
                 OnChange.Invoke(this, new EventArgs());
         }
-        public new void RemoveAt(Int32 index)
+        public new void RemoveAt(int index)
         {
             T item = base[index];
             base.RemoveAt(index);
@@ -1353,7 +1353,7 @@ namespace HC.View
 
         public new void AddRange(IEnumerable<T> collection)
         {
-            Int32 Index = base.Count;
+            int Index = base.Count;
             base.AddRange(collection);
             foreach (var item in collection)
             {
@@ -1424,13 +1424,13 @@ namespace HC.View
 
     public class NListEventArgs<T> : EventArgs
     {
-        public NListEventArgs(T item, Int32 index)
+        public NListEventArgs(T item, int index)
         {
             Item = item;
             Index = index;
         }
         public T Item { get; set; }
-        public Int32 Index { get; set; }
+        public int Index { get; set; }
     }
 
     public class HCInhList<T> : List<T> where T : new()
@@ -1472,7 +1472,7 @@ namespace HC.View
 
         public new void Remove(T item)
         {
-            Int32 index = base.IndexOf(item);
+            int index = base.IndexOf(item);
 
             if (OnDelete != null)
             {
@@ -1485,7 +1485,7 @@ namespace HC.View
                 base.Remove(item);
         }
 
-        public new void RemoveAt(Int32 index)
+        public new void RemoveAt(int index)
         {
             T item = base[index];
 
@@ -1517,7 +1517,7 @@ namespace HC.View
 
         public new void AddRange(IEnumerable<T> collection)
         {
-            Int32 index = base.Count;
+            int index = base.Count;
             if (OnInsert != null)
             {
                 foreach (var item in collection)
@@ -1558,13 +1558,13 @@ namespace HC.View
     {
         private bool FInherited = true;
 
-        public NListInhEventArgs(T item, Int32 index)
+        public NListInhEventArgs(T item, int index)
         {
             Item = item;
             Index = index;
         }
         public T Item { get; set; }
-        public Int32 Index { get; set; }
+        public int Index { get; set; }
         public bool Inherited 
         {
             get { return FInherited; }

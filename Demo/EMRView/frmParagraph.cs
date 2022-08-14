@@ -62,10 +62,10 @@ namespace EMRView
                 aHCView.BeginUpdate();
                 try
                 {
-                    Single vFloat = 12;
+                    float vFloat = 12;
                     if (cbbSpaceMode.SelectedIndex > 4)
                     {
-                        if (Single.TryParse(tbxLineSpace.Text, out vFloat))
+                        if (float.TryParse(tbxLineSpace.Text, out vFloat))
                             aHCView.ApplyParaLineSpace((ParaLineSpaceMode)cbbSpaceMode.SelectedIndex, vFloat);
                     }
                     else
@@ -74,17 +74,17 @@ namespace EMRView
                     aHCView.ApplyParaAlignHorz((ParaAlignHorz)cbbAlignHorz.SelectedIndex);
                     aHCView.ApplyParaAlignVert((ParaAlignVert)cbbAlignVert.SelectedIndex);
                     aHCView.ApplyParaBackColor(pnlBackColor.BackColor);
-                    if (Single.TryParse(tbxFirstIndent.Text, out vFloat))
+                    if (float.TryParse(tbxFirstIndent.Text, out vFloat))
                         aHCView.ApplyParaFirstIndent(vFloat);
                     else
                         aHCView.ApplyParaFirstIndent(0);
 
-                    if (Single.TryParse(tbxLeftIndent.Text, out vFloat))
+                    if (float.TryParse(tbxLeftIndent.Text, out vFloat))
                         aHCView.ApplyParaLeftIndent(vFloat);
                     else
                         aHCView.ApplyParaLeftIndent(0);
 
-                    if (Single.TryParse(tbxRightIndent.Text, out vFloat))
+                    if (float.TryParse(tbxRightIndent.Text, out vFloat))
                         aHCView.ApplyParaRightIndent(vFloat);
                     else
                         aHCView.ApplyParaRightIndent(0);

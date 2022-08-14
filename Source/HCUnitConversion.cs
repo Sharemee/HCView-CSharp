@@ -8,7 +8,7 @@ namespace HC.View
 {
     public static class HCUnitConversion
     {
-        public static Single
+        public static float
             PixelsPerMMX = 3.7f,
             PixelsPerMMY = 3.7f,
             FontSizeScale = 0.75f;
@@ -37,46 +37,46 @@ namespace HC.View
             PixelsPerMMY = PixelsPerInchY / 25.4f;  // 1毫米对应像素 = 1英寸dpi数 / 1英寸对应毫米
         }
 
-        public static uint TwipToPixel(Single aValue, Single aDpi)
+        public static uint TwipToPixel(float aValue, float aDpi)
         {
             return (uint)Math.Round(aValue * aDpi / 1440);
         }
 
         public static uint PixelToTwip(uint aValue, uint aDpi)
         {
-            return (uint)Math.Round((Single)(aValue * 1440 / aDpi));
+            return (uint)Math.Round((float)(aValue * 1440 / aDpi));
         }
 
-        public static Single TwipToMillimeter(Single aValue)
+        public static float TwipToMillimeter(float aValue)
         {
-            return (Single)(aValue * 25.4 / 1440);
+            return (float)(aValue * 25.4 / 1440);
         }
 
-        public static Single MillimeterToTwip(Single aValue)
+        public static float MillimeterToTwip(float aValue)
         {
-            return (Single)(aValue * 1440 / 25.4);
+            return (float)(aValue * 1440 / 25.4);
         }
 
         /// <summary> 水平像素转为毫米 </summary>
-        public static Single PixXToMillimeter(int value)
+        public static float PixXToMillimeter(int value)
         {
             return value / PixelsPerMMX;
         }
 
         /// <summary> 毫米转为水平像素 </summary>
-        public static int MillimeterToPixX(Single value)
+        public static int MillimeterToPixX(float value)
         {
             return (int)Math.Round(value * PixelsPerMMX);
         }
 
         /// <summary> 垂直像素转为毫米 </summary>
-        public static Single PixYToMillimeter(int value)
+        public static float PixYToMillimeter(int value)
         {
             return value / PixelsPerMMY;
         }
 
         /// <summary> 毫米转为垂直像素 </summary>
-        public static int MillimeterToPixY(Single value)
+        public static int MillimeterToPixY(float value)
         {
             return (int)Math.Round(value * PixelsPerMMY);
         }
@@ -87,7 +87,7 @@ namespace HC.View
         /// <param name="aPt"></param>
         /// <param name="aDpi"></param>
         /// <returns></returns>
-        public static int PtToPixel(Single aPt, int aDpi)
+        public static int PtToPixel(float aPt, int aDpi)
         {
             return (int)Math.Round(aPt * aDpi / 72);
         }
@@ -95,12 +95,12 @@ namespace HC.View
         /// <summary>
         /// 像素转磅
         /// </summary>
-        public static Single PixelToPt(int aPix, int aDpi)
+        public static float PixelToPt(int aPix, int aDpi)
         {
             return aPix / aDpi * 72f;
         }
 
-        public static Single TwipToPt(Single value)
+        public static float TwipToPt(float value)
         {
             return value / 1440 * 72;
         }

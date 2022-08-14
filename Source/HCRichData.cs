@@ -526,8 +526,7 @@ namespace HC.View
 
         protected virtual void DoDrawItemMouseMove(HCCustomData data, int itemNo, int offset, int drawItemNo, MouseEventArgs e)
         {
-            if (FOnDrawItemMouseMove != null)
-                FOnDrawItemMouseMove(data, itemNo, offset, drawItemNo, e);
+            FOnDrawItemMouseMove?.Invoke(data, itemNo, offset, drawItemNo, e);
         }
 
         /// <summary> 用于从流加载完Items后，检查不合格的Item并删除 </summary>
@@ -549,8 +548,7 @@ namespace HC.View
         protected virtual void DoItemResized(int aItemNo)
         {
             this.Change();
-            if (FOnItemResized != null)
-                FOnItemResized(this, aItemNo);
+            FOnItemResized?.Invoke(this, aItemNo);
         }
 
         protected virtual int GetHeight()
@@ -673,8 +671,7 @@ namespace HC.View
                 Result.StyleNo = aStyleNo;
             }
 
-            if (FOnCreateItem != null)
-                FOnCreateItem(Result, null);
+            FOnCreateItem?.Invoke(Result, null);
 
             return Result;
         }
@@ -1723,7 +1720,7 @@ namespace HC.View
 
         public override bool InsertStream(Stream aStream, HCStyle aStyle, ushort aFileVersion)
         {
-            Int64 vDataSize = 0;
+            long vDataSize = 0;
             byte[] vBuffer = BitConverter.GetBytes(vDataSize);
             aStream.Read(vBuffer, 0, vBuffer.Length);
             vDataSize = BitConverter.ToInt64(vBuffer, 0);
@@ -2511,8 +2508,7 @@ namespace HC.View
             MouseEventArgs vMouseArgs = new MouseEventArgs(e.Button, e.Clicks, vX, vY, e.Delta);
             Items[aItemNo].MouseDown(vMouseArgs);
 
-            if (FOnItemMouseDown != null)
-                FOnItemMouseDown(this, aItemNo, aOffset, vMouseArgs);
+            FOnItemMouseDown?.Invoke(this, aItemNo, aOffset, vMouseArgs);
         }
         #endregion
 
@@ -2909,7 +2905,7 @@ namespace HC.View
         }
 
         // Key返回0表示此键按下Data没有做任何事情
-        public virtual void KeyPress(ref Char key)
+        public virtual void KeyPress(ref char key)
         {
             if (!CanEdit())
                 return;
@@ -3140,8 +3136,8 @@ namespace HC.View
                     if (SelectInfo.StartItemOffset != 0)  // 不在Item最开始
                     {
                         SelectInfo.StartItemOffset = SelectInfo.StartItemOffset - 1;
-                        #if UNPLACEHOLDERCHAR
-                        Char vChar = Items[SelectInfo.StartItemNo].Text[SelectInfo.StartItemOffset + 1 - 1];
+#if UNPLACEHOLDERCHAR
+                        char vChar = Items[SelectInfo.StartItemNo].Text[SelectInfo.StartItemOffset + 1 - 1];
                         if (HC.TibetanVowel.IndexOf(vChar) >= 0)
                             ;
                         else

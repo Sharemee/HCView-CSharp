@@ -370,7 +370,7 @@ namespace HC.View
             if (aPos < 1)
                 return;
 
-            Char vChar = aText[aPos + 1 - 1];  // 因为是要处理截断，所以APos肯定是小于Length(AText)的，不用考虑越界
+            char vChar = aText[aPos + 1 - 1];  // 因为是要处理截断，所以APos肯定是小于Length(AText)的，不用考虑越界
             if (HC.PosCharHC(vChar, HC.DontLineFirstChar) > 0)  // 下一个是不能放在行首的字符
             {
                 aPos--;  // 当前要移动到下一行，往前一个截断重新判断
@@ -883,8 +883,7 @@ namespace HC.View
 
         protected void DoFormatDirty()
         {
-            if (FOnFormatDirty != null)
-                FOnFormatDirty(this, null);
+            FOnFormatDirty?.Invoke(this, null);
         }
 
         protected void FormatInit()
@@ -1269,8 +1268,7 @@ namespace HC.View
                 return;
             }
 
-            if (FOnItemReFormatRequest != null)
-                FOnItemReFormatRequest(this, aItem);
+            FOnItemReFormatRequest?.Invoke(this, aItem);
         }
 
         public virtual void ItemReFormatResponse(HCCustomItem item)
@@ -1288,8 +1286,7 @@ namespace HC.View
                 ReSetSelectAndCaret(itemNo, offset);
                 Items[itemNo].Active = true;
                 Style.UpdateInfoReCaret(true);
-                if (FOnItemSetCaretRequest != null)
-                    FOnItemSetCaretRequest(this, itemNo, offset);
+                FOnItemSetCaretRequest?.Invoke(this, itemNo, offset);
             }
         }
 

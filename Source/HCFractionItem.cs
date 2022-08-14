@@ -289,12 +289,12 @@ namespace HC.View
             }
         }
 
-        public override void KeyPress(ref Char key)
+        public override void KeyPress(ref char key)
         {
             if (FActiveArea != ExpressArea.ceaNone)
                 InsertText(key.ToString());
             else
-                key = (Char)0;
+                key = (char)0;
         }
 
         public override bool InsertText(string aText)

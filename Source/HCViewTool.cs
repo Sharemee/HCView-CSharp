@@ -24,8 +24,7 @@ namespace HC.View
 
         private void DoTableToolPropertyClick(object sender, EventArgs e)
         {
-            if (FOnTableToolPropertyClick != null)
-                FOnTableToolPropertyClick(sender, e);
+            FOnTableToolPropertyClick?.Invoke(sender, e);
         }
 
         private void DoImageShapeStructOver(object sender, EventArgs e)

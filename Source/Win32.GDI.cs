@@ -359,19 +359,19 @@ namespace HC.Win32
     public struct TT_HHEA
     {
         public uint Version;
-        public Int16 Ascender;
-        public Int16 Descender;
-        public Int16 LineGap;
-        public UInt16 advanceWidthMax;
-        public Int16 minLeftSideBearing;
-        public Int16 minRightSideBearing;
-        public Int16 xMaxExtent;
-        public Int16 caretSlopeRise;
-        public Int16 caretSlopeRun;
-        public Int16 caretOffset;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)] public Int16[] reserved;
-        public Int16 metricDataFormat;
-        public UInt16 numberOfHMetrics;
+        public short Ascender;
+        public short Descender;
+        public short LineGap;
+        public ushort advanceWidthMax;
+        public short minLeftSideBearing;
+        public short minRightSideBearing;
+        public short xMaxExtent;
+        public short caretSlopeRise;
+        public short caretSlopeRun;
+        public short caretOffset;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)] public short[] reserved;
+        public short metricDataFormat;
+        public ushort numberOfHMetrics;
     }
 
 	public struct NONCLIENTMETRICS 
@@ -846,7 +846,7 @@ namespace HC.Win32
 		[DllImport("gdi32")] public static extern int FlattenPath(HDC hdc);
 		[DllImport("gdi32")] public static extern int FloodFill(HDC hdc, int x, int y, int crColor);
 		[DllImport("gdi32")] public static extern int FrameRgn(HDC hdc, HANDLE hRgn, HANDLE hBrush, int nWidth, int nHeight);
-		[DllImport("gdi32")] public static extern int GdiComment(HDC hdc, int cbSize, Byte lpData);
+		[DllImport("gdi32")] public static extern int GdiComment(HDC hdc, int cbSize, byte lpData);
 		[DllImport("gdi32")] public static extern int GdiFlush();
 		[DllImport("gdi32")] public static extern int GdiGetBatchLimit();
 		[DllImport("gdi32")] public static extern int GdiSetBatchLimit(int dwLimit);
@@ -876,7 +876,7 @@ namespace HC.Win32
 		[DllImport("gdi32")] public static extern int GetDeviceCaps(HDC hdc, int nIndex);
 		[DllImport("gdi32")] public static extern int GetDeviceGammaRamp(HDC hdc, IntPtr lpv);
 		[DllImport("gdi32")] public static extern int GetEnhMetaFile(string lpszMetaFile);
-		[DllImport("gdi32")] public static extern int GetEnhMetaFileBits(HANDLE hemf, int cbBuffer, Byte lpbBuffer);
+		[DllImport("gdi32")] public static extern int GetEnhMetaFileBits(HANDLE hemf, int cbBuffer, byte lpbBuffer);
 		[DllImport("gdi32")] public static extern int GetEnhMetaFileDescription(HANDLE hemf, int cchBuffer, string lpszDescription);
 		[DllImport("gdi32")] public static extern int GetEnhMetaFileHeader(HANDLE hemf, int cbBuffer, ref ENHMETAHEADER lpemh);
 		[DllImport("gdi32")] public static extern int GetEnhMetaFilePaletteEntries(HANDLE hemf, int cEntries, ref PALETTEENTRY lppe);
@@ -903,7 +903,7 @@ namespace HC.Win32
         //[DllImport("gdi32", EntryPoint = "GetOutlineTextMetricsW", CharSet = CharSet.Unicode, ExactSpelling = true)] 
         //public static extern int GetOutlineTextMetrics(HDC hdc, int cbData, ref OUTLINETEXTMETRICW lpotm);
 		[DllImport("gdi32")] public static extern int GetPaletteEntries(HANDLE hPalette, int wStartIndex, int wNumEntries, ref PALETTEENTRY lpPaletteEntries);
-		[DllImport("gdi32")] public static extern int GetPath(HDC hdc, ref POINT lpPoint, Byte lpTypes, int nSize);
+		[DllImport("gdi32")] public static extern int GetPath(HDC hdc, ref POINT lpPoint, byte lpTypes, int nSize);
 		[DllImport("gdi32")] public static extern int GetPixel(HDC hdc, int x, int y);
 		[DllImport("gdi32")] public static extern int GetPixelFormat(HWND hdc);
 		[DllImport("gdi32")] public static extern int GetPolyFillMode(HDC hdc);
@@ -935,7 +935,7 @@ namespace HC.Win32
 		[DllImport("gdi32")] public static extern int GetTextMetrics(HDC hdc, ref TEXTMETRICW lpMetrics);
 		[DllImport("gdi32")] public static extern int GetViewportExtEx(HDC hdc, ref SIZE lpSize);
 		[DllImport("gdi32")] public static extern int GetViewportOrgEx(HDC hdc, ref POINT lpPoint);
-		[DllImport("gdi32")] public static extern int GetWinMetaFileBits(HANDLE hemf, int cbBuffer, Byte lpbBuffer, int fnMapMode, HWND hdcRef);
+		[DllImport("gdi32")] public static extern int GetWinMetaFileBits(HANDLE hemf, int cbBuffer, byte lpbBuffer, int fnMapMode, HWND hdcRef);
 		[DllImport("gdi32")] public static extern int GetWindowExtEx(HDC hdc, ref SIZE lpSize);
 		[DllImport("gdi32")] public static extern int GetWindowOrgEx(HDC hdc, ref POINT lpPoint);
 		[DllImport("gdi32")] public static extern int GetWorldTransform(HDC hdc, ref XFORM lpXform);
@@ -963,7 +963,7 @@ namespace HC.Win32
 		[DllImport("gdi32")] public static extern int PlgBlt(HWND hdcDest, ref POINT lpPoint, HWND hdcSrc, int nXSrc, int nYSrc, int nWidth, int nHeight, HANDLE hbmMask, int xMask, int yMask);
 		[DllImport("gdi32")] public static extern int PolyBezier(HDC hdc, ref POINT lppt, int cPoints);
 		[DllImport("gdi32")] public static extern int PolyBezierTo(HDC hdc, ref POINT lppt, int cCount);
-		[DllImport("gdi32")] public static extern int PolyDraw(HDC hdc, ref POINT lppt, Byte lpbTypes, int cCount);
+		[DllImport("gdi32")] public static extern int PolyDraw(HDC hdc, ref POINT lppt, byte lpbTypes, int cCount);
 		[DllImport("gdi32")] public static extern int PolyPolygon(HDC hdc, ref POINT lpPoint, ref int lpPolyCounts, int nCount);
 		[DllImport("gdi32")] public static extern int PolyPolyline(HDC hdc, ref POINT lppt, ref int lpdwPolyPoints, int cCount);
 		[DllImport("gdi32")] public static extern int PolyTextOut(HDC hdc, ref POLYTEXT pptxt, int cStrings);
@@ -1002,13 +1002,13 @@ namespace HC.Win32
 		[DllImport("gdi32")] public static extern int SetDIBits(HDC hdc, HANDLE hBitmap, int nStartScan, int nNumScans, IntPtr lpBits, ref BITMAPINFO lpBI, int wUsage);
 		[DllImport("gdi32")] public static extern int SetDIBitsToDevice(HDC hdc, int x, int y, int dx, int dy, int SrcX, int SrcY, int Scan, int NumScans, IntPtr Bits, BITMAPINFO BitsInfo, int wUsage);
 		[DllImport("gdi32")] public static extern int SetDeviceGammaRamp(HDC hdc, IntPtr lpv);
-		[DllImport("gdi32")] public static extern int SetEnhMetaFileBits(int cbBuffer, Byte lpData);
+		[DllImport("gdi32")] public static extern int SetEnhMetaFileBits(int cbBuffer, byte lpData);
 		[DllImport("gdi32")] public static extern int SetGraphicsMode(HDC hdc, int iMode);
 		[DllImport("gdi32")] public static extern int SetICMMode(HDC hdc, int n);
 		[DllImport("gdi32")] public static extern int SetICMProfile(HDC hdc, string lpStr);
 		[DllImport("gdi32")] public static extern int SetMapMode(HDC hdc, int nMapMode);
 		[DllImport("gdi32")] public static extern int SetMapperFlags(HDC hdc, int dwFlag);
-		[DllImport("gdi32")] public static extern int SetMetaFileBitsEx(int nSize, Byte lpData);
+		[DllImport("gdi32")] public static extern int SetMetaFileBitsEx(int nSize, byte lpData);
 		[DllImport("gdi32")] public static extern int SetMetaRgn(HDC hdc);
 		[DllImport("gdi32")] public static extern int SetMiterLimit(HDC hdc, double eNewLimit, double peOldLimit);
 		[DllImport("gdi32")] public static extern int SetPaletteEntries(HANDLE hPalette, int wStartIndex, int wNumEntries, ref PALETTEENTRY lpPaletteEntries);
@@ -1026,7 +1026,7 @@ namespace HC.Win32
 		[DllImport("gdi32")] public static extern int SetTextJustification(HDC hdc, int nBreakExtra, int nBreakCount);
 		[DllImport("gdi32")] public static extern int SetViewportExtEx(HDC hdc, int nX, int nY, ref SIZE lpSize);
 		[DllImport("gdi32")] public static extern int SetViewportOrgEx(HDC hdc, int nX, int nY, ref POINT lpPoint);
-		[DllImport("gdi32")] public static extern int SetWinMetaFileBits(int cbBuffer, Byte lpbBuffer, HWND hdcRef, ref METAFILEPICT lpmfp);
+		[DllImport("gdi32")] public static extern int SetWinMetaFileBits(int cbBuffer, byte lpbBuffer, HWND hdcRef, ref METAFILEPICT lpmfp);
 		[DllImport("gdi32")] public static extern int SetWindowExtEx(HDC hdc, int nX, int nY, ref SIZE lpSize);
 		[DllImport("gdi32")] public static extern int SetWindowOrgEx(HDC hdc, int nX, int nY, ref POINT lpPoint);
 		[DllImport("gdi32")] public static extern int SetWorldTransform(HDC hdc, ref XFORM lpXform);
@@ -1045,8 +1045,8 @@ namespace HC.Win32
 		[DllImport("gdi32")] public static extern int WidenPath(HDC hdc);
 
         [DllImport("msimg32")] // coredll
-        extern public static Int32 AlphaBlend(IntPtr hdcDest, Int32 xDest, Int32 yDest, Int32 cxDest, Int32 cyDest,
-            IntPtr hdcSrc, Int32 xSrc, Int32 ySrc, Int32 cxSrc, Int32 cySrc, BLENDFUNCTION blendFunction);
+        extern public static int AlphaBlend(IntPtr hdcDest, int xDest, int yDest, int cxDest, int cyDest,
+            IntPtr hdcSrc, int xSrc, int ySrc, int cxSrc, int cySrc, BLENDFUNCTION blendFunction);
 
         public const byte AC_SRC_ALPHA = 1;
         public const byte AC_SRC_OVER = 0;

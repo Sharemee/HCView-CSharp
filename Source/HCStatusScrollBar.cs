@@ -18,7 +18,7 @@ using System.Text;
 
 namespace HC.View
 {
-    public class HCStatus : Object
+    public class HCStatus : object
     {
         private int FWidth;
         private string FText;
@@ -44,8 +44,7 @@ namespace HC.View
 
         private void DoChange()
         {
-            if (FOnChange != null)
-                FOnChange(this, null);
+            FOnChange?.Invoke(this, null);
         }
 
         public HCStatus()

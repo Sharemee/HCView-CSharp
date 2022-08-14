@@ -68,14 +68,12 @@ namespace EMRView
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            if (FOnSave != null)
-                FOnSave(sender, e);
+            FOnSave?.Invoke(sender, e);
         }
 
         private void BtnCompile_Click(object sender, EventArgs e)
         {
-            if (FOnCompile != null)
-                FOnCompile(sender, e);
+            FOnCompile?.Invoke(sender, e);
         }
     }
 }

@@ -29,11 +29,13 @@ namespace HC.View
     public delegate void PaintEventHandler(HCCanvas aCanvas, PaintInfo aPaintInfo);
     public delegate bool HCCopyPasteEventHandler(int aFormat);
 
-    // HCView必需是第一个类
+    /// <summary>
+    /// HCView必需是第一个类
+    /// </summary>
     public class HCView : UserControl
     {
         private string FFileName;
-        private HCStyle FStyle;
+        private readonly HCStyle FStyle;
         private List<HCSection> FSections;
         private HCUndoList FUndoList;
         private HCStatusScrollBar FHScrollBar;
@@ -45,13 +47,13 @@ namespace HC.View
         private int FActiveSectionIndex, FViewWidth, FViewHeight, FDisplayFirstSection, FDisplayLastSection;
         private uint FUpdateCount;
         private byte FPagePadding;
-        private Single FZoom;
+        private float FZoom;
         private bool FAutoZoom;  // 自动缩放
         private bool FIsChanged;  // 是否发生了改变
         private bool FCanEditChecked, FCanEditSnapShot;
 
-        private HCAnnotatePre FAnnotatePre;  // 批注管理
-        private bool FPrintAnnotatePre = false;
+        private readonly HCAnnotatePre FAnnotatePre;  // 批注管理
+        private readonly bool FPrintAnnotatePre = false;
 
         private HCViewModel FViewModel;  // 界面显示模式：页面、Web
         private HCCaret FCaret;
@@ -61,18 +63,25 @@ namespace HC.View
         private SectionDataItemEventHandler FOnSectionCaretItemChanged;
         private OnCanEditEventHandler FOnSectionCanEdit;
         private TextEventHandler FOnSectionInsertTextBefor;
+
         private SectionDataItemEventHandler FOnSectionInsertItem, FOnSectionRemoveItem;
+
         private SectionDataDrawItemMouseEventHandler FOnSectionDrawItemMouseMove;
         private SectionDataItemNoFunEvent FOnSectionSaveItem;
         private SectionDataActionEventHandler FOnSectionAcceptAction;
         private SectionDrawItemPaintEventHandler FOnSectionDrawItemPaintAfter, FOnSectionDrawItemPaintBefor;
 
-        private SectionPaintEventHandler
-            FOnSectionPaintHeaderBefor, FOnSectionPaintHeaderAfter,
-            FOnSectionPaintFooterBefor, FOnSectionPaintFooterAfter,
-            FOnSectionPaintPageBefor, FOnSectionPaintPageAfter,
-            FOnSectionPaintPaperBefor, FOnSectionPaintPaperAfter;
-        private PaintEventHandler FOnPaintViewBefor, FOnPaintViewAfter;
+        private SectionPaintEventHandler FOnSectionPaintHeaderBefor;
+        private SectionPaintEventHandler FOnSectionPaintHeaderAfter;
+        private SectionPaintEventHandler FOnSectionPaintFooterBefor;
+        private SectionPaintEventHandler FOnSectionPaintFooterAfter;
+        private SectionPaintEventHandler FOnSectionPaintPageBefor;
+        private SectionPaintEventHandler FOnSectionPaintPageAfter;
+        private SectionPaintEventHandler FOnSectionPaintPaperBefor;
+        private SectionPaintEventHandler FOnSectionPaintPaperAfter;
+
+        private PaintEventHandler FOnPaintViewBefor;
+        private PaintEventHandler FOnPaintViewAfter;
 
         private EventHandler FOnChange, FOnChangedSwitch, FOnZoomChanged, FOnViewResize;
 
@@ -156,8 +165,7 @@ namespace HC.View
             FStyle.UpdateInfoReCaret(false);
             CheckUpdateInfo();
             GetPagesAndActive();
-            if (FOnVerScroll != null)
-                FOnVerScroll(this, null);
+            FOnVerScroll?.Invoke(this, null);
         }
 
         private void DoHorScroll(object Sender, ScrollCode ScrollCode, int ScrollPos)
@@ -165,30 +173,25 @@ namespace HC.View
             FStyle.UpdateInfoRePaint();
             FStyle.UpdateInfoReCaret(false);
             CheckUpdateInfo();
-            if (FOnHorScroll != null)
-                FOnHorScroll(this, null);
+            FOnHorScroll?.Invoke(this, null);
         }
 
-        private void DoSectionDataChange(Object Sender, EventArgs e)
-        {
-            DoChange();
-        }
+        private void DoSectionDataChange(object Sender, EventArgs e) => DoChange();
 
-        private void DoSetChange(Object Sender, EventArgs e)
+        private void DoSetChange(object Sender, EventArgs e)
         {
             FCanEditChecked = false;
             SetIsChanged(true);
-            if (FOnChange != null)
-                FOnChange(this, null);
+            FOnChange?.Invoke(this, null);
         }
 
-        private void DoSectionChangeTopLevelData(Object Sender, EventArgs e)
+        private void DoSectionChangeTopLevelData(object Sender, EventArgs e)
         {
             DoViewResize();
         }
 
         // 仅重绘和重建光标，不触发Change事件
-        private void DoSectionDataCheckUpdateInfo(Object Sender, EventArgs e)
+        private void DoSectionDataCheckUpdateInfo(object Sender, EventArgs e)
         {
             CheckUpdateInfo();
         }
@@ -319,8 +322,7 @@ namespace HC.View
 
         private void DoViewResize()
         {
-            if (FOnViewResize != null)
-                FOnViewResize(this, null);
+            FOnViewResize?.Invoke(this, null);
         }
 
         /// <summary> 文档"背板"变动(数据无变化，如对称边距，缩放视图) </summary>
@@ -333,10 +335,9 @@ namespace HC.View
             }
         }
 
-        private void DoSectionReadOnlySwitch(Object sender, EventArgs e)
+        private void DoSectionReadOnlySwitch(object sender, EventArgs e)
         {
-            if (FOnSectionReadOnlySwitch != null)
-                FOnSectionReadOnlySwitch(this, null);
+            FOnSectionReadOnlySwitch?.Invoke(this, null);
         }
 
         private POINT DoSectionGetScreenCoord(int x, int y)
@@ -377,14 +378,12 @@ namespace HC.View
 
         private void DoSectionCurParaNoChange(object sender, EventArgs e)
         {
-            if (FOnSectionCurParaNoChange != null)
-                FOnSectionCurParaNoChange(sender, e);
+            FOnSectionCurParaNoChange?.Invoke(sender, e);
         }
 
         private void DoSectionActivePageChange(object sender, EventArgs e)
         {
-            if (FOnSectionActivePageChange != null)
-                FOnSectionActivePageChange(sender, e);
+            FOnSectionActivePageChange?.Invoke(sender, e);
         }
 
         private delegate void SetStyleInvalidateRect(RECT aRect);
@@ -614,9 +613,9 @@ namespace HC.View
                 aSectionIndex = 0;  // throw new Exception("没有获取到正确的节序号！"); 只一页且高度小于视口高度时点击到底部按第0节处理
         }
 
-        private void SetZoom(Single Value)
+        private void SetZoom(float Value)
         {
-            Single vValue = Value;
+            float vValue = Value;
             if (vValue < 0.25)
                 vValue = 0.25f;
             else
@@ -629,8 +628,7 @@ namespace HC.View
                 FZoom = vValue;
                 FStyle.UpdateInfoRePaint();
                 FStyle.UpdateInfoReCaret(false);
-                if (FOnZoomChanged != null)
-                    FOnZoomChanged(this, null);
+                FOnZoomChanged?.Invoke(this, null);
 
                 DoMapChanged();
                 DoViewResize();
@@ -758,8 +756,7 @@ namespace HC.View
             if (FIsChanged != Value)
             {
                 FIsChanged = Value;
-                if (FOnChangedSwitch != null)
-                    FOnChangedSwitch(this, null);
+                FOnChangedSwitch?.Invoke(this, null);
             }
         }
 
@@ -916,8 +913,7 @@ namespace HC.View
         protected virtual void DoCaretChange()
         {
             GetPagesAndActive();
-            if (FOnCaretChange != null)
-                FOnCaretChange(this, null);
+            FOnCaretChange?.Invoke(this, null);
         }
 
         protected virtual void DoKillFocus()
@@ -929,10 +925,9 @@ namespace HC.View
             }
         }
 
-        protected virtual void DoSectionCreateItem(Object sender, EventArgs e)
+        protected virtual void DoSectionCreateItem(object sender, EventArgs e)
         {
-            if (FOnSectionCreateItem != null)
-                FOnSectionCreateItem(this, null);
+            FOnSectionCreateItem?.Invoke(this, null);
         }
 
         protected virtual bool DoSectionAcceptAction(object sender, HCCustomData aData, int aItemNo, int aOffset, HCAction aAction)
@@ -956,22 +951,19 @@ namespace HC.View
             return true;
         }
 
-        protected virtual void DoSectionCaretItemChanged(Object sender, HCCustomData data, HCCustomItem item)
+        protected virtual void DoSectionCaretItemChanged(object sender, HCCustomData data, HCCustomItem item)
         {
-            if (FOnSectionCaretItemChanged != null)
-                FOnSectionCaretItemChanged(sender, data, item);
+            FOnSectionCaretItemChanged?.Invoke(sender, data, item);
         }
 
         protected virtual void DoSectionInsertItem(object sender, HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnSectionInsertItem != null)
-                FOnSectionInsertItem(sender, aData, aItem);
+            FOnSectionInsertItem?.Invoke(sender, aData, aItem);
         }
 
         protected virtual void DoSectionRemoveItem(object sender, HCCustomData aData, HCCustomItem aItem)
         {
-            if (FOnSectionRemoveItem != null)
-                FOnSectionRemoveItem(sender, aData, aItem);
+            FOnSectionRemoveItem?.Invoke(sender, aData, aItem);
         }
 
         protected virtual bool DoSectionSaveItem(object sender, HCCustomData aData, int aItemNo)
@@ -995,8 +987,7 @@ namespace HC.View
 
         protected virtual void DoSectionDrawItemMouseMove(object sender, HCCustomData data, int itemNo, int offset, int drawItemNo, MouseEventArgs e)
         {
-            if (FOnSectionDrawItemMouseMove != null)
-                FOnSectionDrawItemMouseMove(sender, data, itemNo, offset, drawItemNo, e);
+            FOnSectionDrawItemMouseMove?.Invoke(sender, data, itemNo, offset, drawItemNo, e);
         }
 
         protected virtual bool DoSectionCanEdit(object sender)
@@ -1021,25 +1012,22 @@ namespace HC.View
                 return true;
         }
 
-        protected void DoSectionPaintHeaderBefor(Object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
+        protected void DoSectionPaintHeaderBefor(object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
         {
-            if (FOnSectionPaintHeaderBefor != null)
-                FOnSectionPaintHeaderBefor(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintHeaderBefor?.Invoke(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
-        protected void DoSectionPaintHeaderAfter(Object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
+        protected void DoSectionPaintHeaderAfter(object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
         {
-            if (FOnSectionPaintHeaderAfter != null)
-                FOnSectionPaintHeaderAfter(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintHeaderAfter?.Invoke(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
-        protected void DoSectionPaintFooterBefor(Object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
+        protected void DoSectionPaintFooterBefor(object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
         {
-            if (FOnSectionPaintFooterBefor != null)
-                FOnSectionPaintFooterBefor(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintFooterBefor?.Invoke(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
-        protected void DoSectionPaintFooterAfter(Object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
+        protected void DoSectionPaintFooterAfter(object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
         {
             HCSection vSection = sender as HCSection;
             if (vSection.PageNoVisible)
@@ -1074,20 +1062,17 @@ namespace HC.View
                 aCanvas.TextOut(aRect.Left + (aRect.Width - aCanvas.TextWidth(vS)) / 2, aRect.Top + vSection.Footer.Height, vS);
             }
 
-            if (FOnSectionPaintFooterAfter != null)
-                FOnSectionPaintFooterAfter(vSection, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintFooterAfter?.Invoke(vSection, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
-        protected virtual void DoSectionPaintPageBefor(Object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
+        protected virtual void DoSectionPaintPageBefor(object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
         {
-            if (FOnSectionPaintPageBefor != null)
-                FOnSectionPaintPageBefor(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintPageBefor?.Invoke(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
-        protected void DoSectionPaintPageAfter(Object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
+        protected void DoSectionPaintPageAfter(object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
         {
-            if (FOnSectionPaintPageAfter != null)
-                FOnSectionPaintPageAfter(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintPageAfter?.Invoke(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
         protected void DoSectionPaintPaperBefor(object sender, int aPageIndex, RECT aRect, HCCanvas aCanvas, SectionPaintInfo aPaintInfo)
@@ -1095,8 +1080,7 @@ namespace HC.View
             if (aPaintInfo.Print && (FAnnotatePre.DrawCount > 0))
                 FAnnotatePre.ClearDrawAnnotate();
 
-            if (FOnSectionPaintPaperBefor != null)
-                FOnSectionPaintPaperBefor(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintPaperBefor?.Invoke(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
         protected void DoSectionPaintPaperAfter(object sender, int aPageIndex,
@@ -1127,16 +1111,14 @@ namespace HC.View
             if (FAnnotatePre.Visible && !aPaintInfo.Print)  // 当前页有批注，绘制批注
                 FAnnotatePre.PaintDrawAnnotate(sender, aRect, aCanvas, aPaintInfo);
 
-            if (FOnSectionPaintPaperAfter != null)
-                FOnSectionPaintPaperAfter(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
+            FOnSectionPaintPaperAfter?.Invoke(sender, aPageIndex, aRect, aCanvas, aPaintInfo);
         }
 
         protected virtual void DoSectionDrawItemPaintBefor(object sender, HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect, RECT aClearRect,
             int aDataDrawLeft, int aDataDrawRight, int aDataDrawBottom, int aDataScreenTop, int aDataScreenBottom, HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
-            if (FOnSectionDrawItemPaintBefor != null)
-                FOnSectionDrawItemPaintBefor(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
-                    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
+            FOnSectionDrawItemPaintBefor?.Invoke(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
+    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
         }
 
         protected virtual void DoSectionDrawItemPaintContent(HCCustomData aData, int aItemNo, int aDrawItemNo, RECT aDrawRect, RECT aClearRect, string aDrawText,
@@ -1165,9 +1147,8 @@ namespace HC.View
                 aCanvas.DrawLine(aClearRect.Left, aClearRect.Bottom, aClearRect.Right, aClearRect.Bottom);
             }
 
-            if (FOnSectionDrawItemPaintAfter != null)
-                FOnSectionDrawItemPaintAfter(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
-                    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
+            FOnSectionDrawItemPaintAfter?.Invoke(this, aData, aItemNo, aDrawItemNo, aDrawRect, aClearRect, aDataDrawLeft, aDataDrawRight,
+    aDataDrawBottom, aDataScreenTop, aDataScreenBottom, aCanvas, aPaintInfo);
         }
 
         /// <summary> 实现插入文本 </summary>
@@ -1212,15 +1193,13 @@ namespace HC.View
         /// <summary> 视图绘制开始 </summary>
         protected virtual void DoPaintViewBefor(HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
-            if (FOnPaintViewBefor != null)
-                FOnPaintViewBefor(aCanvas, aPaintInfo);
+            FOnPaintViewBefor?.Invoke(aCanvas, aPaintInfo);
         }
 
         /// <summary> 视图绘制完成 </summary>
         protected virtual void DoPaintViewAfter(HCCanvas aCanvas, PaintInfo aPaintInfo)
         {
-            if (FOnPaintViewAfter != null)
-                FOnPaintViewAfter(aCanvas, aPaintInfo);
+            FOnPaintViewAfter?.Invoke(aCanvas, aPaintInfo);
         }
 
         /// <summary> 保存文档前触发事件，便于订制特征数据 </summary>
@@ -2263,7 +2242,7 @@ namespace HC.View
         }
 
         /// <summary> 修改当前光标所在段行间距 </summary>
-        public void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, Single aSpace = 1)
+        public void ApplyParaLineSpace(ParaLineSpaceMode aSpaceMode, float aSpace = 1)
         {
             ActiveSection.ApplyParaLineSpace(aSpaceMode, aSpace);
         }
@@ -2278,19 +2257,19 @@ namespace HC.View
         }
 
         /// <summary> 修改当前光标所在段左缩进 </summary>
-        public void ApplyParaLeftIndent(Single aIndent)
+        public void ApplyParaLeftIndent(float aIndent)
         {
             ActiveSection.ApplyParaLeftIndent(aIndent);
         }
 
         /// <summary> 修改当前光标所在段右缩进 </summary>
-        public void ApplyParaRightIndent(Single aIndent)
+        public void ApplyParaRightIndent(float aIndent)
         {
             ActiveSection.ApplyParaRightIndent(aIndent);
         }
 
         /// <summary> 修改当前光标所在段首行缩进 </summary>
-        public void ApplyParaFirstIndent(Single aIndent)
+        public void ApplyParaFirstIndent(float aIndent)
         {
             ActiveSection.ApplyParaFirstIndent(aIndent);
         }
@@ -2308,7 +2287,7 @@ namespace HC.View
         }
 
         /// <summary> 修改当前选中文本的字号 </summary>
-        public void ApplyTextFontSize(Single aFontSize)
+        public void ApplyTextFontSize(float aFontSize)
         {
             ActiveSection.ApplyTextFontSize(aFontSize);
         }
@@ -2477,9 +2456,9 @@ namespace HC.View
                 else
                 if (vIData.GetDataPresent(DataFormats.Rtf) && DoPasteRequest(User.CF_TEXT))
                 {
-                    string vs = vIData.GetData(DataFormats.Rtf).ToString();
-                    HCRtfRW vRtfRW = new HCRtfRW();
-                    vRtfRW.InsertString(this, vs);
+                    //string vs = vIData.GetData(DataFormats.Rtf).ToString();
+                    //HCRtfRW vRtfRW = new HCRtfRW();
+                    //vRtfRW.InsertString(this, vs);
                 }
                 else
                 if (vIData.GetDataPresent(DataFormats.Text) && DoPasteRequest(User.CF_TEXT))
@@ -4247,7 +4226,7 @@ namespace HC.View
         }
 
         /// <summary> 缩放值 </summary>
-        public Single Zoom
+        public float Zoom
         {
             get { return FZoom; }
             set { SetZoom(value); }
@@ -4607,8 +4586,7 @@ namespace HC.View
 
         private void DoUpdateView()
         {
-            if (FOnUpdateView != null)
-                FOnUpdateView(this, null);
+            FOnUpdateView?.Invoke(this, null);
         }
 
         private void SetMouseIn(bool value)
@@ -4678,11 +4656,11 @@ namespace HC.View
                         break;
                     else
                         if (vDrawAnnotate.DrawRect.Bottom > vTop)
-                        {
-                            vLast = i;
-                            if (vFirst < 0)
-                                vFirst = i;
-                        }
+                    {
+                        vLast = i;
+                        if (vFirst < 0)
+                            vFirst = i;
+                    }
                 }
 
                 if (vFirst >= 0)

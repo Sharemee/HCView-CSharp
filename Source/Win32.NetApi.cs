@@ -117,10 +117,10 @@ namespace HC.Win32
 	{
 		[DllImport("Netapi32")] public static extern int NetApiBufferFree(int lpBuffer);
 		[DllImport("Netapi32")] public static extern int NetRemoteTOD(IntPtr yServer, int pBuffer);
-		[DllImport("Netapi32")] public static extern int NetUserChangePassword(IntPtr Domain, IntPtr User, Byte OldPass, Byte NewPass);
-		[DllImport("Netapi32")] public static extern int NetUserGetGroups(IntPtr lpServer, Byte UserName, int Level, ref int lpBuffer, int PrefMaxLen, ref int lpEntriesRead, ref int lpTotalEntries);
-		[DllImport("Netapi32")] public static extern int NetUserGetInfo(IntPtr lpServer, Byte UserName, int Level, ref int lpBuffer);
-		[DllImport("Netapi32")] public static extern int NetUserGetLocalGroups(IntPtr lpServer, Byte UserName, int Level, int Flags, ref int lpBuffer, int MaxLen, ref int lpEntriesRead, ref int lpTotalEntries);
+		[DllImport("Netapi32")] public static extern int NetUserChangePassword(IntPtr Domain, IntPtr User, byte OldPass, byte NewPass);
+		[DllImport("Netapi32")] public static extern int NetUserGetGroups(IntPtr lpServer, byte UserName, int Level, ref int lpBuffer, int PrefMaxLen, ref int lpEntriesRead, ref int lpTotalEntries);
+		[DllImport("Netapi32")] public static extern int NetUserGetInfo(IntPtr lpServer, byte UserName, int Level, ref int lpBuffer);
+		[DllImport("Netapi32")] public static extern int NetUserGetLocalGroups(IntPtr lpServer, byte UserName, int Level, int Flags, ref int lpBuffer, int MaxLen, ref int lpEntriesRead, ref int lpTotalEntries);
 		[DllImport("Netapi32")] public static extern int NetWkstaGetInfo(IntPtr lpServer, int Level, IntPtr lpBuffer);
 		[DllImport("Netapi32")] public static extern int NetWkstaUserGetInfo(IntPtr reserved, int Level, IntPtr lpBuffer);
 		[DllImport("netapi32")] public static extern int NetUserAdd(IntPtr lpServer, int Level, ref USER_INFO_3 lpUser, ref int lpError);

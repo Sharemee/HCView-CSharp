@@ -253,13 +253,11 @@ namespace EMRView
                 SqlCommand sqlComm = new SqlCommand();
                 sqlComm.Connection = FConn;
                 sqlComm.CommandText = sql;
-                if (exec != null)
-                    exec(sqlComm);
-                
+                exec?.Invoke(sqlComm);
+
                 sqlComm.ExecuteNonQuery();
 
-                if (exec2 != null)
-                    exec2(sqlComm);
+                exec2?.Invoke(sqlComm);
 
                 return true;
             }
@@ -279,8 +277,7 @@ namespace EMRView
 
                 SqlCommand sqlComm = new SqlCommand();
                 sqlComm.Connection = FConn;
-                if (exec != null)
-                    exec(sqlComm);
+                exec?.Invoke(sqlComm);
 
                 return true;
             }
